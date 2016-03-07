@@ -1,0 +1,95 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <PreferenceCategory
+        android:key="odyssey_information"
+        android:title="@string/pref_title_odyssey_information"
+        >
+        <PreferenceScreen
+            android:defaultValue="true"
+            android:key="about"
+            android:title="@string/pref_title_odyssey_for_android">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/details?id=ru.wtg.exgalleries"/>
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:defaultValue="true"
+            android:key="copyright"
+            android:summary="http://www.pantheon-inc.com"
+            android:title="@string/pref_title_copyright"
+            >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.pantheon-inc.com"/>
+        </PreferenceScreen>
+
+
+        <PreferenceScreen
+            android:key="odyssey_legal_information"
+            android:title="@string/pref_title_odyssey_legal_information"
+            >
+            <Preference
+                android:key="info"
+                android:layout="@layout/preference_info"
+                android:summary="@string/odyssey_legal_information_summary"
+                android:title="@string/pref_title_odyssey_legal_information">
+            </Preference>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="third_parties_information"
+        android:title="@string/pref_title_third_parties_information">
+
+        <PreferenceScreen
+            android:title="@string/third_parties_components"
+            >
+
+            <PreferenceScreen
+                android:summary="Fingerprint authentication library"
+                android:title="Digitus">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/afollestad/digitus"/>
+            </PreferenceScreen>
+
+            <PreferenceScreen
+                android:summary="Profile icons font"
+                android:title="Material Design Iconic Font">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="http://zavoloklom.github.io/material-design-iconic-font/"/>
+            </PreferenceScreen>
+
+            <PreferenceScreen
+                android:summary="Material style navigation drawer"
+                android:title="Material Drawer">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="http://mikepenz.github.io/MaterialDrawer/"/>
+            </PreferenceScreen>
+
+            <PreferenceScreen
+                android:summary="Component for show pattern"
+                android:title="Pattern view">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/geftimov/android-patternview"/>
+            </PreferenceScreen>
+
+            <PreferenceScreen
+                android:summary="Text as drawable presentation library"
+                android:title="TextDrawable">
+
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/amulyakhare/TextDrawable"/>
+            </PreferenceScreen>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

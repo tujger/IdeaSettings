@@ -1,0 +1,221 @@
+<resources>
+    <string name="app_name" translatable="false">Odyssey</string>
+    <string name="odyssey_logo">Odyssey Logo</string>
+    <string name="pantheon_logo">Pantheon Logo</string>
+    <string name="background">Background</string>
+    <string name="loading">Loading…</string>
+    <string name="title_activity_login">Add Odyssey account</string>
+    <string name="title_activity_main">Odyssey</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="profile">Profile</string>
+
+
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_free_play">Free Play</string>
+    <string name="drawer_item_custom">Custom</string>
+    <string name="drawer_item_settings">Settings</string>
+    <string name="drawer_item_help">Help</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
+    <string name="drawer_item_section_header">Section Header</string>
+    <string name="messages">Messages</string>
+    <string name="add_account">Add account</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="apps">Apps</string>
+    <string name="general">General</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="add_odyssey_account">Add Odyssey account</string>
+    <string name="password_invalid">Password invalid</string>
+    <string name="userid_invalid">User ID invalid</string>
+
+    <string name="api_login" formatted="false" translatable="false">OdysseyMobileLogin(\"%s\",\"%s\");</string>
+    <string name="api_view" formatted="false" translatable="false">OdysseyMobileUpdateView(\"%s\");</string>
+    <string name="fatal_error" formatted="false">Warning!\nURL: %s\nUser ID: %s\n\n%s</string>
+    <string name="inbox">Inbox</string>
+    <string name="api_tag">API_TAG</string>
+    <string name="api_argument1">API_TAG</string>
+    <string name="api_argument2">API_TAG</string>
+    <string name="refresh">Refresh</string>
+    <string name="options">Options</string>
+    <string name="title_activity_authentication">Authentication</string>
+    <string name="title_activity_define_pin">Define Pin Lock</string>
+    <string name="title_activity_define_pattern">Define Pattern Lock</string>
+    <string name="info">Info</string>
+    <string name="title_activity_define_password">Set new password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="password_not_confirmed">Password not confirmed</string>
+    <string name="defined">Defined</string>
+    <string name="you_must_set_up_password_first">You must set up the password first.</string>
+    <string name="password_not_accepted">Password not accepted.</string>
+    <string name="allowed_tries">Allowed tries</string>
+    <string name="attempts_remaining">Attempts remaining: %d</string>
+    <string name="continue_string">Continue</string>
+    <string name="confirm_new_pin">Confirm pin</string>
+    <string name="confirm">Confirm</string>
+    <string name="number_of_dots">Number of dots</string>
+    <string name="maximum_number_of_tries">Maximum number of tries</string>
+    <string name="pin_not_confirmed">Pin not confirmed</string>
+    <string name="pin_defined">Pin defined.</string>
+    <string name="draw_over_at_least_dots">Draw over at least 4 dots</string>
+    <string name="pin_length_was_changed">Pin length was changed, set pin once again</string>
+    <string name="pattern_size_was_changed">Pattern size was changed, set pattern once again</string>
+    <string name="pattern_lock_options">Pattern lock options</string>
+    <string name="set_new_pin">Set new pin</string>
+    <string name="pin_lock_options">Pin lock options</string>
+    <string name="size_of_pattern">Size of pattern</string>
+    <string name="pattern_defined">Pattern defined</string>
+    <string name="pattern_not_confirmed">Pattern not confirmed</string>
+    <string name="set_new_pattern">Set new pattern</string>
+    <string name="confirm_pattern">Confirm pattern</string>
+    <string name="tries_before_delay">Tries before delay</string>
+    <string name="tries_before_delay_message">Will delay 30 seconds after some unsuccessful tries to login.</string>
+    <string name="you_can_try_after_seconds">You can try after %s second(s)</string>
+    <string name="pin_not_accepted">Pin not accepted. Please try again</string>
+    <string name="pin_locked_enter_password">Pin locked, enter your password</string>
+    <string name="clear">Clear</string>
+    <string name="pattern_not_accepted">Pattern not accepted. Please try again</string>
+    <string name="error_setting_up_fingerprint">Error setting up fingerprint</string>
+    <string name="fingerprint_hardware_not_found">Fingerprint hardware not found or not permitted</string>
+    <string name="touch_sensor">Touch sensor</string>
+    <string name="access_granted">Access granted</string>
+    <string name="check_pattern">Check pattern</string>
+    <string name="check_pin">Check pin</string>
+    <string name="fingerprints_not_found">Fingerprints not found. Enter password</string>
+    <string name="check_fingerprint">Check fingerprint</string>
+    <string name="lock">Lock</string>
+    <string name="account_options">Account options</string>
+    <string name="title">Title</string>
+    <string name="server">Server</string>
+    <string name="userid">User ID</string>
+    <string name="error_with_fingerprint">Error with fingerprint. Enter password</string>
+    <string name="fingerprint_denied">Fingerprint denied. Enter password</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_in">Sign in</string>
+    <string name="url_adrress_invalid">URL address invalid</string>
+    <string name="userid_too_short">User ID too short</string>
+    <string name="password_too_short">Password too short</string>
+    <string name="password_incorrect">This password incorrect</string>
+    <string name="field_is_required">Field is required</string>
+    <string name="odyssey_url">Odyssey URL</string>
+    <string name="error_information">Error information</string>
+
+    <!-- Strings related to authentication -->
+    <string name="start_listening">Start Listening</string>
+    <string name="status_initializing">Initializing…</string>
+    <string name="status_ready">Ready to authenticate!</string>
+    <string name="status_authenticated">Authentication successful!</string>
+    <string name="status_error">Error: %1$s</string>
+    <string name="open_security_settings">Open Security Settings</string>
+    <string name="status_listening">Listening for a fingerprint…</string>
+    <string name="status_listening_new">Listening for a fingerprint (new)…</string>
+    <string name="stop_listening">Stop listening</string>
+    <string name="use_dialog">Use Dialog</string>
+    <string name="dialog_authenticated">Authenticated via dialog!</string>
+    <string name="dialog_cancelled">Dialog cancelled</string>
+
+
+    <!-- Strings related to Settings -->
+
+    <!-- Security settings -->
+    <string name="pref_header_security">Security</string>
+    <string-array name="pref_security_method_titles">
+        <item>None</item>
+        <item>Pattern</item>
+        <item>Pin</item>
+        <item>Password</item>
+        <item>Fingerprint</item>
+    </string-array>
+    <string-array name="pref_security_method_values">
+        <item/>
+        <item>pattern</item>
+        <item>pin</item>
+        <item>password</item>
+        <item>fingerprint</item>
+    </string-array>
+
+    <string name="pref_title_security_method">Method</string>
+    <string name="pref_description_security_method">.</string>
+
+    <string name="pref_title_none">None</string>
+    <string name="pref_description_none">.</string>
+
+    <string name="pref_title_pattern">Pattern</string>
+    <string name="pref_description_pattern">pattern security</string>
+
+    <string name="pref_title_pin">Pin</string>
+    <string name="pref_description_pin">pin security</string>
+
+    <string name="pref_title_password">Password</string>
+    <string name="pref_description_password">password security</string>
+
+    <string name="pref_title_fingerprint">Fingerprint</string>
+    <string name="pref_description_fingerprint">fingerprint security</string>
+
+    <string name="pref_title_secured_lock_time">Secured lock time</string>
+    <string-array name="pref_secured_lock_time_titles">
+        <item>Immediately</item>
+        <item>1 minute</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_secured_lock_time_values">
+        <item>0</item>
+        <item>60</item>
+        <item>180</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- About section -->
+    <string name="pref_header_about">About</string>
+
+    <string name="pref_title_odyssey_information">General</string>
+    <string name="pref_title_odyssey_for_android">Odyssey for Android</string>
+    <string name="pref_title_copyright">Copyright © 1997-2016, Pantheon Inc</string>
+
+    <string name="pref_title_odyssey_legal_information">Legal information</string>
+    <string name="pref_title_third_parties_information">Other information</string>
+    <string name="remember_password">Remember password</string>
+    <string name="enter_odyssey_password">Enter Odyssey password</string>
+    <string name="password_required">Password required</string>
+    <string name="check_password">Check password</string>
+    <string name="set_new_password">Set new password</string>
+    <string name="hide_trail">Hide trail</string>
+
+
+    <string name="odyssey_legal_information_summary"><![CDATA[
+
+Here should be the Odyssey legal information
+
+            ]]> </string>
+    <string name="third_parties_components">Third parties components</string>
+
+    <string name="fingerprint_description">Confirm fingerprint to continue.</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again.</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="initializing">Initializing…</string>
+    <string name="new_fingerprint_enrolled_description">A new fingerprint was added to this device, so your password is required.</string>
+    <string name="no_fingerprints_registered">No fingerprints are registered.</string>
+    <string name="password">Password</string>
+    <string name="password_description">Enter your password to continue.</string>
+    <string name="password_not_recognized">Password not recognized. Try again.</string>
+    <string name="sign_in">Sign In</string>
+    <string name="use_fingerprint_in_future">Use fingerprint in the future</string>
+    <string name="use_password">Use password</string>
+</resources>
