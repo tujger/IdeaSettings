@@ -490,7 +490,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String str = etPassword.getText().toString();
 
-                        System.out.println("CLICKE DOK "+str);
 
                         if (str.length() > 0) {
                             sta.getAccount().setRememberPassword(false);
@@ -514,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
         private void cancelClicked(AlertDialog v){
             Utils.sendHandlerMessage(uiHandler, WebAppInterface.ACTION_HIDE_ALL | WebAppInterface.ACTION_SHOW_ERROR, getString(string.password_required));
             v.dismiss();
-        };
+        }
 
         private void doLogin() {
 

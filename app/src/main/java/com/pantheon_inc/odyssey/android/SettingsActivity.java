@@ -2,11 +2,13 @@ package com.pantheon_inc.odyssey.android;
 
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -16,10 +18,21 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.pantheon_inc.odyssey.R;
 import com.pantheon_inc.odyssey.android.helpers.AppCompatPreferenceActivity;
 import com.pantheon_inc.odyssey.android.helpers.Utils;
@@ -58,6 +71,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private static Preference pPassword, pPin, pPattern, pFingerprint;
     private static String previousMethod;
 
+    private AppCompatDelegate mDelegate;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -161,6 +175,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
+
     }
 
     /**
@@ -186,7 +201,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     public static void setPreviousMethod(String previousMethod) {
-        System.out.println("PREVIOUS METHOD "+previousMethod);
         SettingsActivity.previousMethod = previousMethod;
     }
 
@@ -333,7 +347,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     }
 
-
     private static void defineLock(int method) {
 
         Intent intent = new Intent(activity, LockActivity.class);
@@ -348,43 +361,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         String method = getPreviousMethod();
 
-        switch (requestCode) {
-            case LockActivity.SETUP_PATTERN: {
-                System.out.println("PATTERN RESULT " + resultCode);
-                if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case LockActivity.SETUP_PATTERN:
                     method = LockActivity.PATTERN;
-                }else{
-                    method=getPreviousMethod();
-                }
-                break;
-            }
-            case LockActivity.SETUP_PIN: {
-                System.out.println("PIN RESULT " + resultCode);
-                if (resultCode == RESULT_OK) {
+                    break;
+                case LockActivity.SETUP_PIN:
                     method = LockActivity.PIN;
-                }else{
-                    method=getPreviousMethod();
-                }
-                break;
-            }
-            case LockActivity.SETUP_PASSWORD: {
-                System.out.println("PASSWORD RESULT " + resultCode);
-                if (resultCode == RESULT_OK) {
+                    break;
+                case LockActivity.SETUP_PASSWORD:
                     method = LockActivity.PASSWORD;
-                }else{
-                    method=getPreviousMethod();
-                }
-                break;
-            }
-            case LockActivity.SETUP_FINGERPRINT: {
-                System.out.println("FINGERPRINT RESULT " + resultCode);
-                if (resultCode == RESULT_OK) {
+                    break;
+                case LockActivity.SETUP_FINGERPRINT:
                     method = LockActivity.FINGERPRINT;
-                }else{
-                    method=getPreviousMethod();
-                }
-                break;
-            }// SECURITY_CREATE_PASSWORD
+                    break;
+            }
+        } else {
+            method = getPreviousMethod();
         }
 
         lpMethod.setValue(method);
@@ -403,7 +396,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         pPin.setEnabled(false);
 
         str = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext()).getString(LockActivity.PASSWORD, null);
-        System.out.println("PASSWORDSUMMARY "+str);
         pPassword.setSummary(str == null ? "" : fragment.getResources().getString(R.string.defined));
         pPassword.setEnabled(false);
 
@@ -416,7 +408,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         str = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext()).getString(LockActivity.PREF_SECURITY_METHOD, null);
         if (str != null && !str.equals("-1")) {
-            System.out.println("METHOD " + str);
             Preference p = fragment.findPreference("security_method_" + str);
             if (p != null) {
                 p.setEnabled(true);
@@ -439,15 +430,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
 
+
             PackageInfo a = null;
             try {
-                 a = getActivity().getApplication().getPackageManager().getPackageInfo(getActivity().getApplication().getPackageName(), 0);
+                a = getActivity().getApplication().getPackageManager().getPackageInfo(getActivity().getApplication().getPackageName(), 0);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
-            if(a!=null){
+            if (a != null) {
                 Preference p = findPreference("about");
-                p.setSummary("Version "+a.versionName+" ("+a.versionCode+")");
+                p.setSummary("Version " + a.versionName + "." + a.versionCode);
 
                 p = findPreference("info");
                 p.setSummary(
@@ -455,17 +447,71 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 
             }
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-//            bindPreferenceSummaryToValue(findPreference("about"));
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             return (item.getItemId() == android.R.id.home) || super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            super.onPreferenceTreeClick(preferenceScreen, preference);
+
+            // If the user has clicked on a preference screen, set up the screen
+            if (preference instanceof PreferenceScreen) {
+                setUpNestedScreen((PreferenceScreen) preference);
+            }
+
+            return false;
+        }
+
+        public void setUpNestedScreen(PreferenceScreen preferenceScreen) {
+            final Dialog dialog = preferenceScreen.getDialog();
+
+            AppBarLayout appbar;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                LinearLayout root = (LinearLayout) dialog.findViewById(android.R.id.list).getParent();
+                appbar = (AppBarLayout) LayoutInflater.from(getActivity()).inflate(R.layout.settings_page, root, false);
+                root.addView(appbar, 0); // insert at top
+            } else {
+                ViewGroup root = (ViewGroup) dialog.findViewById(android.R.id.content);
+                ListView content = (ListView) root.getChildAt(0);
+
+                root.removeAllViews();
+
+                appbar = (AppBarLayout) LayoutInflater.from(getActivity()).inflate(R.layout.settings_page, root, false);
+
+                int height;
+                TypedValue tv = new TypedValue();
+                if (getActivity().getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+                    height = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+                } else {
+                    height = appbar.getHeight();
+                }
+
+                content.setPadding(0, height, 0, 0);
+
+                root.addView(content);
+                root.addView(appbar);
+            }
+
+            Toolbar bar = (Toolbar) appbar.findViewById(R.id.toolbar);
+            bar.setTitle(preferenceScreen.getTitle());
+            bar.setNavigationIcon(new IconicsDrawable(activity, GoogleMaterial.Icon.gmd_arrow_back).actionBar().color(Color.WHITE));
+            bar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    android.app.FragmentManager fragmentManager = getFragmentManager();
+
+                    if (fragmentManager.getBackStackEntryCount() == 1) {
+                        fragmentManager.popBackStack();
+                    } else {
+                        activity.onBackPressed();
+                    }
+                }
+            });
         }
     }
 
@@ -475,17 +521,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (id == android.R.id.home) {
             finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("RESUME SETTINGS");
 
-        if(lpMethod!=null){
+        if (lpMethod != null) {
             Utils.checkFingerprintHardware(getApplicationContext());
-            if(lpMethod.getValue().equals(LockActivity.FINGERPRINT)){
+            if (lpMethod.getValue().equals(LockActivity.FINGERPRINT)) {
                 if ((Utils.getFingerprintMode() & Utils.FINGERPRINT_HAS_ENROLLED_FINGERPRINTS) != Utils.FINGERPRINT_HAS_ENROLLED_FINGERPRINTS) {
                     lpMethod.setValue("");
                     bindPreferenceSummaryToValue(lpMethod);

@@ -15,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
@@ -31,15 +30,15 @@ public class Utils {
 
     private static int fingerprintMode;
 
-    public static String getUrl(String url) throws MalformedURLException, IOException {
+    public static String getUrl(String url) throws IOException {
         return Utils.getUrl(url, "UTF-8");
     }
 
-    public static String getUrl(String url, String urlCharset) throws MalformedURLException, IOException {
-        String line = null;
+    public static String getUrl(String url, String urlCharset) throws IOException {
+        String line;
         StringBuilder sb = new StringBuilder();
-        InputStream in = null;
-        URLConnection feedUrl = null;
+        InputStream in;
+        URLConnection feedUrl;
         feedUrl = new URL(url).openConnection();
         feedUrl.setConnectTimeout(5000);
         feedUrl.setRequestProperty(
@@ -71,7 +70,7 @@ public class Utils {
             is = mgr.open(path);
             reader = new BufferedReader(new InputStreamReader(is));
             contents = reader.readLine();
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 contents += '\n' + line;
             }
@@ -143,11 +142,9 @@ public class Utils {
         }
     }
 
-    public static int getIdResourceByName(Context context, String aString)
-    {
+    public static int getIdResourceByName(Context context, String aString){
         String packageName = context.getPackageName();
-        int resId = context.getResources().getIdentifier(aString, "id", packageName);
-        return resId;
+        return context.getResources().getIdentifier(aString, "id", packageName);
     }
 
 
@@ -160,7 +157,7 @@ public class Utils {
     }
 
     public static void checkFingerprintHardware(Context context){
-        System.out.println("A");
+        System.out.println("CHECK FINGERPRINT HARDWARE");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         System.out.println("B");
             FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
@@ -180,7 +177,7 @@ public class Utils {
                 }
             }
         }else{
-        System.out.println("g");
+        System.out.println("G");
             setFingerprintMode(FINGERPRINT_NOT_ALLOWED | FINGERPRINT_HARDWARE_NOT_DETECTED);
         }
     }

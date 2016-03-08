@@ -5,12 +5,12 @@ function OdysseyMobileLogin(username,password){
     var hasDocument = document.body.innerHTML.length > 10;
     var hasLoginForm = !!document.getElementById("frmAdmin");
     var hasContent = !!document.getElementById("dbContentPanel");
-    console.log("TRY AS "+username+":"+password);
     console.log("FOUND isOdyssey:"+isOdyssey+" hasDocument:"+hasDocument+" hasError:"+hasError+" hasLoginForm:"+hasLoginForm+" hasContent:"+hasContent);
     if(isOdyssey && hasDocument){
         if(hasLoginForm){
             if(!hasError){
                 try{
+                    console.log("TRY LOGIN AS "+username+":"+password);
 	                var a = document.getElementById("OdysseyMobile");
 	                if(a)a.value = true;
 	                a = document.getElementById("userId");
