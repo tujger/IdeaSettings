@@ -274,7 +274,7 @@ public class AddAccountActivity extends AppCompatActivity {
 
                 mRequester = new RequestBuilder(getApplicationContext())
                         .requestCode(REQUEST_CHECK_LOGIN)
-                        .timeOut(3000)
+                        .timeOut(15000)
                         .showError(true) //Show error with toast on Network or Server error
                         .shouldCache(true)
                         .addToHeader("deviceid", deviceId)
@@ -335,6 +335,7 @@ public class AddAccountActivity extends AppCompatActivity {
 
                 String errorField = jsonObject.has("ErrorField") ? jsonObject.getString("ErrorField") : "";
                 String errorMessage = jsonObject.has("ErrorMessage") ? jsonObject.getString("ErrorMessage") : "";
+                final int timeout = jsonObject.has("Timeout") ? jsonObject.getInt("Timeout") : 0;
                 if (errorField.length() > 0) {
                     switch (errorField) {
                         case "userid":
@@ -349,6 +350,45 @@ public class AddAccountActivity extends AppCompatActivity {
                             mUrlView.requestFocus();
                             mUrlView.setError(errorMessage);
                             break;
+                    }
+                    if(timeout>0){
+                        new AsyncTask<Integer,Integer,Void>(){
+                            @Override
+                            protected void onPreExecute() {
+                                super.onPreExecute();
+                                mOk.setEnabled(false);
+                            }
+
+                            @Override
+                            protected Void doInBackground(Integer... params) {
+                                int i=timeout;
+                                publishProgress(i);
+                                while(i>0) {
+                                    publishProgress(i);
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    i--;
+                                }
+                                return null;
+                            }
+
+                            @Override
+                            protected void onProgressUpdate(Integer... values) {
+                                super.onProgressUpdate(values);
+                                mWarning.setText(getString(R.string.you_can_try_after_seconds,values));
+                                mWarning.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            protected void onPostExecute(Void a) {
+                                super.onPostExecute(a);
+                                mOk.setEnabled(true);
+                                mWarning.setVisibility(View.GONE);
+                            }
+                        }.execute(timeout);
                     }
                     return;
                 }
