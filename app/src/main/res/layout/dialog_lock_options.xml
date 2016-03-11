@@ -8,22 +8,6 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin">
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/layoutPatternLength"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/etPatternLength"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/size_of_pattern"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"/>
-        </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layoutPinLength"
         android:layout_width="match_parent"
@@ -54,6 +38,20 @@
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layoutPatternLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etPatternLength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/size_of_pattern"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/layoutPatternHide"
@@ -61,13 +59,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <CheckBox
+        <Switch
+            android:id="@+id/swPatternHide"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/hide_trail"
-            android:id="@+id/cbPatternHide"
             android:layout_weight="1"
-            />
+            style="@android:style/TextAppearance.Medium"/>
 
     </LinearLayout>
 

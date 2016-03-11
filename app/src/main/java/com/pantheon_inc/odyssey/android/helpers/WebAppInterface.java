@@ -27,12 +27,16 @@ public class WebAppInterface {
     public static final String ACTION_COMMENT = "comment";
 
 
-    /** Instantiate the interface and set the context */
+    /**
+     * Instantiate the interface and set the context
+     */
     WebAppInterface(Context c) {
         mContext = c;
     }
 
-    /** Show a toast from the web page */
+    /**
+     * Show a toast from the web page
+     */
     @JavascriptInterface
     public void showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
@@ -45,7 +49,7 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public void error(String message) {
-        System.out.println("SEND ERROR TO UI :"+message);
+        System.out.println("SEND ERROR TO UI :" + message);
         Message m = uiHandler.obtainMessage();
         Bundle uB = m.getData();
         uB.putInt(ACTION, ACTION_HIDE_ALL | ACTION_SHOW_ERROR);
@@ -95,7 +99,7 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void refresh(){
+    public void refresh() {
         System.out.println("SEND MESSAGE TO UI FOR REFRESH");
         Message m = uiHandler.obtainMessage();
         Bundle uB = m.getData();

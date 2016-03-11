@@ -448,7 +448,7 @@
 
             android:layout_marginStart="16dp"
             android:gravity="center_vertical"
-            android:text="@string/fingerprint_hint"
+            android:text="@string/touch_sensor"
             />
     </LinearLayout>
 

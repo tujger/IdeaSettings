@@ -3,18 +3,15 @@ package com.pantheon_inc.odyssey.android.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+
+import com.pantheon_inc.odyssey.R;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Account {
-
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user1:Richard300611", "wtiger:richard"};
-
     private static final String ACCOUNT_LAST_ID = "accountLastId";
     public static final String ACCOUNT_CURRENT_ID = "accountCurrentId";
     public static final String ACCOUNT_URL = "url";
@@ -32,7 +29,6 @@ public class Account {
     public static final int ERROR_OLD_VERSION = 3;
     public static final int ERROR_NETWORK_NOT_ALLOWED = 4;
     public static final int ERROR_ANOTHER_ERROR = 100;
-
 
     private static Context context;
 
@@ -132,7 +128,6 @@ public class Account {
      * @return <code>true</code> if success, <code>false</code> otherwise
      */
     public boolean load(int id) {
-
         SharedPreferences sp = context.getSharedPreferences("account_" + id,
                 Context.MODE_PRIVATE);
 
@@ -159,7 +154,6 @@ public class Account {
      * Adds new account ID, sets it as default and saves the account.
      */
     public boolean add() {
-
         int lastId = Account.getLastId();
 
         SharedPreferences sp = PreferenceManager
@@ -185,7 +179,7 @@ public class Account {
 
         if (!(id > 0)) {
             try {
-                throw new Exception("Identifier not defined.");
+                throw new Exception(context.getString(R.string.identifier_not_defined));
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -203,38 +197,6 @@ public class Account {
         editor.putString(ACCOUNT_PASSWORD, rememberPassword ? password : "");
 
         return editor.commit();
-    }
-
-    /**
-     * Check credentials for the account
-     */
-    public static void checkCredentials(final String url, final String username, final String password) {
-
-        new AsyncTask() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-            }
-        }.execute();
-
-    }
-
-
-    /**
-     * Checks credentials for account.
-     */
-    public void checkCredentials() {
-        Account.checkCredentials(url.toString(), username, password);
     }
 
     /**
@@ -334,7 +296,6 @@ public class Account {
         this.sessionId = sessionId;
         if (sessionId != null) {
             context.getSharedPreferences("account_" + id, Context.MODE_PRIVATE).edit().putString(ACCOUNT_SESSION_ID, sessionId).apply();
-            System.out.println("SAVE SESSION ID " + sessionId);
         }
         return this;
     }
@@ -372,16 +333,11 @@ public class Account {
     }
 
     public Account setErrorCode(String errorMessage) {
-
-        if(errorMessage.contains("old version of Odyssey server")){
+        if (errorMessage.contains("old version of Odyssey server")) {
             setErrorCode(ERROR_OLD_VERSION);
-        }else{
+        } else {
             setErrorCode(ERROR_ANOTHER_ERROR);
         }
-
         return this;
     }
-
-
-
 }

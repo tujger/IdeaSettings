@@ -4,12 +4,12 @@
          when checked/unchecked. -->
     <PreferenceCategory
         android:key="odyssey_information"
-        android:title="@string/pref_title_odyssey_information"
+        android:title="@string/general"
         >
         <PreferenceScreen
             android:defaultValue="true"
             android:key="about"
-            android:title="@string/pref_title_odyssey_for_android">
+            android:title="@string/odyssey_for_android">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://play.google.com/store/apps/details?id=ru.wtg.exgalleries"/>
@@ -19,7 +19,7 @@
             android:defaultValue="true"
             android:key="copyright"
             android:summary="http://www.pantheon-inc.com"
-            android:title="@string/pref_title_copyright"
+            android:title="@string/copyright"
             >
             <intent
                 android:action="android.intent.action.VIEW"
@@ -29,7 +29,7 @@
 
         <PreferenceScreen
             android:key="odyssey_legal_information"
-            android:title="@string/pref_title_odyssey_legal_information"
+            android:title="@string/legal_information"
             >
             <Preference
                 android:key="info"
@@ -42,7 +42,7 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:key="third_parties_information"
-        android:title="@string/pref_title_third_parties_information">
+        android:title="@string/other_information">
 
         <PreferenceScreen
             android:title="@string/third_parties_components"
@@ -54,6 +54,14 @@
                 <intent
                     android:action="android.intent.action.VIEW"
                     android:data="https://github.com/afollestad/digitus"/>
+            </PreferenceScreen>
+
+            <PreferenceScreen
+                android:summary="Fast and clean JSON requests library"
+                android:title="JsonRequester">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/alirezaafkar/JsonRequester"/>
             </PreferenceScreen>
 
             <PreferenceScreen

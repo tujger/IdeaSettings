@@ -10,6 +10,13 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.pantheon_inc.odyssey.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.pantheon_inc.odyssey.permission.C2D_MESSAGE" />
 
     <uses-feature
         android:name="android.software.webview"
@@ -34,18 +41,18 @@
         </activity>
         <activity
             android:name=".android.AddAccountActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/add_odyssey_account"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dialog"/>
         <activity
             android:name=".android.MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".android.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
         <activity
@@ -65,6 +72,28 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dialog">
         </activity>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.pantheon_inc.odyssey" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.pantheon_inc.odyssey" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".android.GcmService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

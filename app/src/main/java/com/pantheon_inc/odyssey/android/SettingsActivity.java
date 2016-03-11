@@ -20,7 +20,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.TypedValue;
@@ -63,15 +62,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final int SECURITY_METHOD_PASSWORD = 3;
     private static final int SECURITY_METHOD_FINGERPRINT = 4;
 
-    protected static String password;
+    private static String password;
     private static Context context;
     private static AppCompatPreferenceActivity activity;
     private static PreferenceFragment fragment;
     private static ListPreference lpMethod;
     private static Preference pPassword, pPin, pPattern, pFingerprint;
     private static String previousMethod;
-
-    private AppCompatDelegate mDelegate;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -81,7 +78,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
-
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -140,12 +136,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         context = getApplicationContext();
-
         activity = this;
-
         setupActionBar();
-
-
     }
 
 
@@ -189,18 +181,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
 
-    public static String getPassword() {
+    private static String getPassword() {
         if (password == null) {
             password = PreferenceManager.getDefaultSharedPreferences(context).getString(LockActivity.PASSWORD, null);
         }
         return password;
     }
 
-    public String getPreviousMethod() {
+    private String getPreviousMethod() {
         return previousMethod;
     }
 
-    public static void setPreviousMethod(String previousMethod) {
+    private static void setPreviousMethod(String previousMethod) {
         SettingsActivity.previousMethod = previousMethod;
     }
 
@@ -217,10 +209,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             fragment = this;
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
 
             lpMethod = (ListPreference) findPreference(LockActivity.PREF_SECURITY_METHOD);
             lpMethod.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -415,7 +403,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         }
         bindPreferenceSummaryToValue(lpMethod);
-
     }
 
     /**
@@ -430,7 +417,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
 
-
             PackageInfo a = null;
             try {
                 a = getActivity().getApplication().getPackageManager().getPackageInfo(getActivity().getApplication().getPackageName(), 0);
@@ -442,10 +428,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 p.setSummary("Version " + a.versionName + "." + a.versionCode);
 
                 p = findPreference("info");
-                p.setSummary(
-                        Html.fromHtml(getString(R.string.odyssey_legal_information_summary)));
-
-
+                p.setSummary(Html.fromHtml(getString(R.string.odyssey_legal_information_summary)));
             }
         }
 
@@ -460,13 +443,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             // If the user has clicked on a preference screen, set up the screen
             if (preference instanceof PreferenceScreen) {
-                setUpNestedScreen((PreferenceScreen) preference);
+                setupNestedScreen((PreferenceScreen) preference);
             }
 
             return false;
         }
 
-        public void setUpNestedScreen(PreferenceScreen preferenceScreen) {
+        public void setupNestedScreen(PreferenceScreen preferenceScreen) {
             final Dialog dialog = preferenceScreen.getDialog();
 
             AppBarLayout appbar;
@@ -538,9 +521,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     setSummariesToMethods();
                 }
             }
-
-
         }
-
     }
 }

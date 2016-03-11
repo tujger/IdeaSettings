@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    private EditText etTitle,etServer,etLogin,etPassword;
+    private EditText etTitle, etServer, etLogin, etPassword;
     private Account account;
     private AlertDialog dialog;
     private View content;
@@ -30,7 +30,6 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         prepareAndShowDialog();
-//        setContentView(R.layout.activity_options);
 
         account = Account.getCurrentAccount();
 
@@ -38,7 +37,7 @@ public class OptionsActivity extends AppCompatActivity {
         etServer = (EditText) content.findViewById(R.id.etServer);
         etLogin = (EditText) content.findViewById(R.id.etUserid);
         etPassword = (EditText) content.findViewById(R.id.etPassword);
-        content.findViewById(R.id.cbRememberPassword).setVisibility(View.GONE);
+        content.findViewById(R.id.swRememberPassword).setVisibility(View.GONE);
         content.findViewById(R.id.tvWarning).setVisibility(View.GONE);
         content.findViewById(R.id.pbLogin).setVisibility(View.GONE);
 
@@ -53,22 +52,21 @@ public class OptionsActivity extends AppCompatActivity {
         etPassword.setText(account.getPassword());
 
         mNeutral.setVisibility(View.GONE);
-        mOk.setOnClickListener(onConfirm);
-
+        mOk.setOnClickListener(new OnConfirm());
     }
 
     private void prepareAndShowDialog() {
-
         dialog = new AlertDialog.Builder(OptionsActivity.this).create();
         content = getLayoutInflater().inflate(R.layout.activity_options, null);
         mWarning = (TextView) content.findViewById(R.id.tvWarning);
 
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), onClickHolder);
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), onClickHolder);
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.password), onClickHolder);
+        OnCancelListener x = new OnCancelListener();
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), x);
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), x);
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.password), x);
 
         dialog.setTitle(R.string.account_options);
-        dialog.setOnCancelListener(onCancelListener);
+        dialog.setOnCancelListener(x);
 
         dialog.setView(content);
         dialog.show();
@@ -76,17 +74,7 @@ public class OptionsActivity extends AppCompatActivity {
         mNeutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
     }
 
-    DialogInterface.OnClickListener onClickHolder = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
-            Intent intent = new Intent();
-            setResult(RESULT_CANCELED, intent);
-            finish();
-        }
-    };
-
-    DialogInterface.OnCancelListener onCancelListener = new DialogInterface.OnCancelListener() {
+    private class OnCancelListener implements DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
         @Override
         public void onCancel(DialogInterface dialog) {
             dialog.dismiss();
@@ -94,13 +82,19 @@ public class OptionsActivity extends AppCompatActivity {
             setResult(RESULT_CANCELED, intent);
             finish();
         }
-    };
 
-    View.OnClickListener onConfirm = new View.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+            Intent intent = new Intent();
+            setResult(RESULT_CANCELED, intent);
+            finish();
+        }
+    }
+
+    private class OnConfirm implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            System.out.println("CONFIRM");
-
             account.setTitle(etTitle.getText().toString());
             try {
                 account.setUrl(etServer.getText().toString());
@@ -113,9 +107,8 @@ public class OptionsActivity extends AppCompatActivity {
             account.save();
 
             Intent intent = new Intent();
-            setResult(RESULT_OK,intent);
+            setResult(RESULT_OK, intent);
             finish();
         }
-    };
-
+    }
 }

@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId 'com.pantheon_inc.odyssey'
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName '10.1'
@@ -26,10 +27,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
+    compile "com.google.android.gms:play-services-gcm:8.3.0"
+
+    //material drawer
     compile('com.mikepenz:materialdrawer:5.0.0@aar') {
         transitive = true
     }
+    //material iconic
     compile 'com.mikepenz:google-material-typeface:2.2.0.1.original@aar'
+    //patternview
     compile 'com.eftimoff:android-patternview:1.0.5@aar'
 }
 
@@ -43,9 +49,16 @@ repositories{
 }
 
 dependencies {
+    //textdrawable
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //digitus
     compile('com.github.afollestad:digitus:0.2.6@aar') {
         transitive = true
     }
+
+    //rest client
+    compile 'com.github.alirezaafkar:JsonRequester:v1.0.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
 
 }

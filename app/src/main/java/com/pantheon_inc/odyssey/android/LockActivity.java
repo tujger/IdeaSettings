@@ -3,6 +3,7 @@ package com.pantheon_inc.odyssey.android;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,12 +17,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,6 @@ import com.pantheon_inc.odyssey.R;
 import com.pantheon_inc.odyssey.android.helpers.Utils;
 
 import java.util.ArrayList;
-
 
 public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
@@ -56,7 +56,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
      */
     public static final String PREF_SECURITY_METHOD = "securityMethod";
     public static final String PREF_SECURITY_TRIES_BEFORE_DELAY = "triesBeforeDelay";
-    public static final String PREF_SECURITY_SECURED_LOCK_TIME = "securedLockTime";
+//    public static final String PREF_SECURITY_SECURED_LOCK_TIME = "securedLockTime";
 
     private static final String PREF_PIN_MAX_TRIES = "pinMaxTries";
     private static final String PREF_PIN_LENGTH = "pinLength";
@@ -75,7 +75,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
     private AlertDialog dialog;
     private Button mOk, mNeutral;
-    private EditText mPasswordView, mConfirmPasswordView, mPinLength, mPinMaxTries, mPatternLength;
+    private EditText mPasswordView, mConfirmPasswordView, mPinLength, mPinMaxTries;
     private PatternView mPatternView;
     private PinView mPinView;
     private TextView mWarning;
@@ -83,8 +83,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
     private String password;
     private int passwordInitialMethod, passwordMinLength, currentLength, currentTries, currentPinTries;
     private String preliminary;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,17 +135,17 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
     }
 
     private void prepareAndShowDialog() {
-
         dialog = new AlertDialog.Builder(LockActivity.this).create();
         content = getLayoutInflater().inflate(R.layout.activity_lock, null);
         mWarning = (TextView) content.findViewById(R.id.tvWarning);
 
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), onClickHolder);
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), onClickHolder);
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.password), onClickHolder);
+        OnCancelListener x = new OnCancelListener();
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), x);
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), x);
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.password), x);
 
         dialog.setTitle(R.string.lock);
-        dialog.setOnCancelListener(onCancelListener);
+        dialog.setOnCancelListener(new OnCancelListener());
 
         dialog.setView(content);
         dialog.show();
@@ -169,7 +167,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         mOk.setVisibility(View.VISIBLE);
         mOk.setEnabled(false);
         mOk.setText(R.string.continue_string);
-        mOk.setOnClickListener(onPatternContinue);
+        mOk.setOnClickListener(new OnPatternContinue());
 
         content.findViewById(R.id.layoutPattern).setVisibility(View.VISIBLE);
 
@@ -177,7 +175,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
         mNeutral.setText(R.string.options);
         mNeutral.setVisibility(View.VISIBLE);
-        mNeutral.setOnClickListener(onPatternOptions);
+        mNeutral.setOnClickListener(new OnPatternOptions());
 
         mPatternView.setOnPatternDetectedListener(new PatternView.OnPatternDetectedListener() {
             @Override
@@ -188,7 +186,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 } else {
                     mOk.setEnabled(false);
                     mWarning.setText(R.string.draw_over_at_least_dots);
-                    mWarning.setVisibility(View.VISIBLE);
+                    mWarning.setVisibility(android.view.View.VISIBLE);
                 }
             }
         });
@@ -198,27 +196,27 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
     /**
      * Sets preliminary result and goes to second stage
      */
-    View.OnClickListener onPatternContinue = new View.OnClickListener() {
+    private class OnPatternContinue implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             dialog.setTitle(getString(R.string.confirm_pattern));
 
             mOk.setText(R.string.confirm);
-            mOk.setOnClickListener(onPatternConfirm);
+            mOk.setOnClickListener(new OnPatternConfirm());
             mOk.setEnabled(false);
 
             setPreliminary(mPatternView.getPatternString());
             mPatternView.clearPattern();
         }
-    };
+    }
 
-    View.OnClickListener onPatternConfirm = new View.OnClickListener() {
+    private class OnPatternConfirm implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             if (mPatternView.getPatternString().equals(getPreliminary())) {
 
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                        .putString(PATTERN, Utils.getEncryptedHash(getPreliminary(), 512)).apply();
+                        .putString(PATTERN, Utils.getEncryptedHash(getPreliminary(), Utils.DIGEST_METHOD_SHA512)).apply();
 
                 Toast.makeText(getApplicationContext(), R.string.pattern_defined, Toast.LENGTH_SHORT).show();
 
@@ -229,13 +227,13 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             }
 
             mPatternView.clearPattern();
-            mWarning.setVisibility(View.VISIBLE);
+            mWarning.setVisibility(android.view.View.VISIBLE);
             mWarning.setText(R.string.pattern_not_confirmed);
             mOk.setEnabled(false);
         }
-    };
+    }
 
-    View.OnClickListener onPatternOptions = new View.OnClickListener() {
+    private class OnPatternOptions implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(LockActivity.this);
@@ -246,7 +244,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    boolean b = ((CheckBox) layout.findViewById(R.id.cbPatternHide)).isChecked();
+                    boolean b = ((Switch) layout.findViewById(R.id.swPatternHide)).isChecked();
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean(PREF_PATTERN_HIDE_TRAIL, b).apply();
                     dialog.dismiss();
                 }
@@ -265,23 +263,23 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 //            mPatternLength.setText(String.valueOf(getCurrentLength()));
 
             boolean b = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(PREF_PATTERN_HIDE_TRAIL, OPTION_PATTERN_HIDE_TRAIL_DEFAULT);
-            ((CheckBox) layout.findViewById(R.id.cbPatternHide)).setChecked(b);
+            ((Switch) layout.findViewById(R.id.swPatternHide)).setChecked(b);
 
             builder.setView(layout);
 
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-    };
+    }
 
     /**
      * Checks entered pattern on unlocking procedure
      */
-    View.OnClickListener onPatternCheck = new View.OnClickListener() {
+    private class OnPatternCheck implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             String defined = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(PATTERN, "");
-            String enc = Utils.getEncryptedHash(mPatternView.getPatternString(), 512);
+            String enc = Utils.getEncryptedHash(mPatternView.getPatternString(), Utils.DIGEST_METHOD_SHA512);
 
             if (defined.equals(enc)) {
                 successUnlock();
@@ -300,7 +298,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 delayBeforeNextTry(PATTERN);
             }
         }
-    };
+    }
 
     private void setupPin() {
         if (getPassword() == null) {
@@ -314,7 +312,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         mOk.setVisibility(View.VISIBLE);
         mOk.setEnabled(false);
         mOk.setText(R.string.continue_string);
-        mOk.setOnClickListener(onPinContinue);
+        mOk.setOnClickListener(new OnPinContinue());
 
         mNeutral.setVisibility(View.VISIBLE);
         content.findViewById(R.id.layoutPin).setVisibility(View.VISIBLE);
@@ -324,14 +322,14 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         mPinView.getDots().setLength(getCurrentLength());
         mPinView.setKeypad((GridLayout) content.findViewById(R.id.layoutPinKeypad));
 
-        mNeutral.setOnClickListener(onPinOptions);
+        mNeutral.setOnClickListener(new OnPinOptions());
         mNeutral.setText(R.string.options);
         mNeutral.setVisibility(View.VISIBLE);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    View.OnClickListener onPinOptions = new View.OnClickListener() {
+    private class OnPinOptions implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(LockActivity.this);
@@ -392,21 +390,21 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             dialog.show();
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-    };
+    }
 
-    public int getCurrentPinTries() {
+    private int getCurrentPinTries() {
         if (currentPinTries == 0)
             currentPinTries = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(PIN_TRIES, 0);
 
         return currentPinTries;
     }
 
-    public void setCurrentPinTries(int currentPinTries) {
+    private void setCurrentPinTries(int currentPinTries) {
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(PIN_TRIES, currentPinTries).apply();
         this.currentPinTries = currentPinTries;
     }
 
-    class PinView {
+    private class PinView {
         private PinViewDots dots = new PinViewDots();
         private PinViewKeypad keypad = new PinViewKeypad();
 
@@ -467,7 +465,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                         @Override
                         public void onClick(View v) {
                             ((RadioButton) v).setChecked(!((RadioButton) v).isChecked());
-
                         }
                     });
                 }
@@ -561,7 +558,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 b = (Button) layout.findViewById(R.id.pinButtonBack);
                 b.setOnClickListener(onPinKeypadButtonBackListener);
                 buttons.add(11, b);
-
             }
 
             View.OnClickListener onPinKeypadButtonListener = new View.OnClickListener() {
@@ -588,31 +584,32 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
     /**
      * Sets preliminary pin and goes to the next stage
      */
-    View.OnClickListener onPinContinue = new View.OnClickListener() {
+    private class OnPinContinue implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            dialog.setTitle(getString(R.string.confirm_new_pin));
+            dialog.setTitle(getString(R.string.confirm_pin));
 
             mOk.setText(R.string.confirm);
-            mOk.setOnClickListener(onPinConfirm);
+            mOk.setOnClickListener(new OnPinConfirm());
             mOk.setEnabled(false);
 
             setPreliminary(mPinView.getDots().toString());
 
             mPinView.getDots().resetState();
         }
-    };
+    }
 
-    View.OnClickListener onPinConfirm = new View.OnClickListener() {
+    private class OnPinConfirm implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             if (mPinView.getDots().toString().equals(getPreliminary())) {
                 int sol = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(PREF_PIN_MAX_TRIES, OPTION_PIN_MAX_TRIES_DEFAULT);
 
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(PREF_PIN_LENGTH, getCurrentLength()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(PREF_PIN_MAX_TRIES, getCurrentTries()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                        .putString(PIN, Utils.getEncryptedHash("" + getCurrentLength() + sol + mPinView.getDots().toString(), 512)).apply();
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                editor.putInt(PREF_PIN_LENGTH, getCurrentLength());
+                editor.putInt(PREF_PIN_MAX_TRIES, getCurrentTries());
+                editor.putString(PIN, Utils.getEncryptedHash("" + getCurrentLength() + sol + mPinView.getDots().toString(), Utils.DIGEST_METHOD_SHA512));
+                editor.apply();
 
                 Toast.makeText(getApplicationContext(), R.string.pin_defined, Toast.LENGTH_SHORT).show();
 
@@ -623,12 +620,12 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             }
 
             mPinView.getDots().resetState();
-            mWarning.setVisibility(View.VISIBLE);
+            mWarning.setVisibility(android.view.View.VISIBLE);
             mWarning.setText(R.string.pin_not_confirmed);
         }
-    };
+    }
 
-    View.OnClickListener onPinCheck = new View.OnClickListener() {
+    private class OnPinCheck implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             String defined = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(PIN, "");
@@ -636,7 +633,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             int sol1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(PREF_PIN_LENGTH, OPTION_PIN_LENGTH_DEFAULT);
             int sol2 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(PREF_PIN_MAX_TRIES, OPTION_PIN_MAX_TRIES_DEFAULT);
 
-            String enc = Utils.getEncryptedHash("" + sol1 + sol2 + mPinView.getDots().toString(), 512);
+            String enc = Utils.getEncryptedHash("" + sol1 + sol2 + mPinView.getDots().toString(), Utils.DIGEST_METHOD_SHA512);
 
             if (defined.equals(enc)) {
                 successUnlock();
@@ -663,10 +660,11 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 delayBeforeNextTry(PIN);
             }
         }
-    };
+    }
 
     /**
      * Blocks view and shows warning with seconds counter for a while
+     *
      * @param method - PATTERN, PIN or PASSWORD
      */
     private void delayBeforeNextTry(final String method) {
@@ -748,7 +746,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         mWarning.setVisibility(View.GONE);
     }
 
-
     /**
      * Set password dialog
      */
@@ -764,12 +761,12 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
         mPasswordView = (EditText) content.findViewById(R.id.etPassword);
         mConfirmPasswordView = (EditText) content.findViewById(R.id.etConfirmPassword);
-        checkPasswordFieldsLength.onTextChanged("", 0, 0, 0);
-        mPasswordView.addTextChangedListener(checkPasswordFieldsLength);
-        mConfirmPasswordView.addTextChangedListener(checkPasswordFieldsLength);
+        OnPasswordFieldLengthChanged x = new OnPasswordFieldLengthChanged();
+        mPasswordView.addTextChangedListener(x);
+        mConfirmPasswordView.addTextChangedListener(x);
 
         mOk.setText(R.string.confirm);
-        mOk.setOnClickListener(onPasswordConfirm);
+        mOk.setOnClickListener(new OnPasswordConfirm());
 
         setPasswordInitialMethod(initialMethod);
         if (initialMethod != SETUP_PASSWORD) {
@@ -779,7 +776,11 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         }
     }
 
-    TextWatcher checkPasswordFieldsLength = new TextWatcher() {
+    private class OnPasswordFieldLengthChanged implements TextWatcher {
+        public OnPasswordFieldLengthChanged() {
+            this.onTextChanged("", 0, 0, 0);
+        }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -797,9 +798,9 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         @Override
         public void afterTextChanged(Editable s) {
         }
-    };
+    }
 
-    View.OnClickListener onPasswordConfirm = new View.OnClickListener() {
+    private class OnPasswordConfirm implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             if (mPasswordView.getText().toString().length() < 4) {
@@ -820,9 +821,9 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
             mWarning.setVisibility(View.GONE);
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                    .putString(PASSWORD, Utils.getEncryptedHash(mPasswordView.getText().toString(), 512)).apply();
+                    .putString(PASSWORD, Utils.getEncryptedHash(mPasswordView.getText().toString(), Utils.DIGEST_METHOD_SHA512)).apply();
 
-            Toast.makeText(getApplicationContext(), "Password defined.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.password_defined, Toast.LENGTH_SHORT).show();
 
             if (getPasswordInitialMethod() == SETUP_PASSWORD) {
                 Intent intent = new Intent();
@@ -836,7 +837,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 setupFingerprint();
             }
         }
-    };
+    }
 
     /**
      * If unlocked successfully then reset tries counters
@@ -871,13 +872,12 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             mWarning.setVisibility(View.VISIBLE);
         }
 
-        mOk.setOnClickListener(onPasswordCheck);
+        mOk.setOnClickListener(new OnPasswordCheck());
         mOk.setVisibility(View.VISIBLE);
         mNeutral.setText(R.string.clear);
         mNeutral.setVisibility(View.GONE);
 
-        checkPasswordFieldsLength.onTextChanged("", 0, 0, 0);
-        mPasswordView.addTextChangedListener(checkPasswordFieldsLength);
+        mPasswordView.addTextChangedListener(new OnPasswordFieldLengthChanged());
 
         mPasswordView.requestFocusFromTouch();
         mPasswordView.requestFocus();
@@ -896,7 +896,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         content.findViewById(R.id.layoutPattern).setVisibility(View.VISIBLE);
 
         mOk.setEnabled(false);
-        mOk.setOnClickListener(onPatternCheck);
+        mOk.setOnClickListener(new OnPatternCheck());
 
         mNeutral.setVisibility(View.VISIBLE);
         mNeutral.setText(R.string.password);
@@ -926,7 +926,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         });
 
         mPatternView.setInStealthMode(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(PREF_PATTERN_HIDE_TRAIL, OPTION_PATTERN_HIDE_TRAIL_DEFAULT));
-
     }
 
     /**
@@ -951,7 +950,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         mPinView.getDots().setAutoSubmit(true);
         mPinView.setKeypad((GridLayout) content.findViewById(R.id.layoutPinKeypad));
 
-        mOk.setOnClickListener(onPinCheck);
+        mOk.setOnClickListener(new OnPinCheck());
         mNeutral.setVisibility(View.VISIBLE);
         mNeutral.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -963,7 +962,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         checkPinTries();
 
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
     }
 
     private void checkPinTries() {
@@ -975,12 +973,10 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         }
     }
 
-
     /**
      * Check fingerprint
      */
     private void checkFingerprint() {
-
         Utils.checkFingerprintHardware(getApplicationContext());
 
         if ((Utils.getFingerprintMode() & Utils.FINGERPRINT_NOT_ALLOWED) == Utils.FINGERPRINT_NOT_ALLOWED) {
@@ -1013,24 +1009,20 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 Toast.makeText(getApplicationContext(), R.string.error_with_fingerprint, Toast.LENGTH_SHORT).show();
                 checkPassword(FINGERPRINT);
             }
-
-//        Digitus.get().
-
         } else {
             Toast.makeText(getApplicationContext(), R.string.fingerprints_not_found, Toast.LENGTH_SHORT).show();
             checkPassword(FINGERPRINT);
         }
     }
 
-
-    View.OnClickListener onPasswordCheck = new View.OnClickListener() {
+    private class OnPasswordCheck implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //password checking
             mWarning.setVisibility(View.GONE);
             mWarning.setText("");
 
-            if (getPassword().equals(Utils.getEncryptedHash(mPasswordView.getText().toString(), 512))) {
+            if (getPassword().equals(Utils.getEncryptedHash(mPasswordView.getText().toString(), Utils.DIGEST_METHOD_SHA512))) {
                 successUnlock();
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
@@ -1054,21 +1046,10 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             if (getCurrentTries() >= Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(PREF_SECURITY_TRIES_BEFORE_DELAY, "5"))) {
                 delayBeforeNextTry(PASSWORD);
             }
-
         }
-    };
+    }
 
-    DialogInterface.OnClickListener onClickHolder = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
-            Intent intent = new Intent();
-            setResult(RESULT_CANCELED, intent);
-            finish();
-        }
-    };
-
-    DialogInterface.OnCancelListener onCancelListener = new DialogInterface.OnCancelListener() {
+    private class OnCancelListener implements DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
         @Override
         public void onCancel(DialogInterface dialog) {
             dialog.dismiss();
@@ -1076,23 +1057,28 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             setResult(RESULT_CANCELED, intent);
             finish();
         }
-    };
 
-    public String getPassword() {
+        @Override
+        public void onClick(android.content.DialogInterface dialog, int which) {
+            dialog.dismiss();
+            Intent intent = new Intent();
+            setResult(RESULT_CANCELED, intent);
+            finish();
+        }
+    }
+
+    private String getPassword() {
         if (password == null) {
             password = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(PASSWORD, null);
         }
         return password;
     }
 
-
     private void setupFingerprint() {
-
         if (getPassword() == null) {
             setupPassword(SETUP_FINGERPRINT);
             return;
         }
-        dialog.setTitle(getString(R.string.set_new_pattern));
 
         Utils.checkFingerprintHardware(getApplicationContext());
 
@@ -1104,17 +1090,14 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             return;
         }
 
-//            Digitus.init(this, getString(R.string.app_name), 69, this);
-            LockActivity.this.startActivityForResult(new Intent(Settings.ACTION_SECURITY_SETTINGS), SETUP_FINGERPRINT);
-
+        LockActivity.this.startActivityForResult(new Intent(Settings.ACTION_SECURITY_SETTINGS), SETUP_FINGERPRINT);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==SETUP_FINGERPRINT) {
-            System.out.println("RESULT SETTINGS = " + resultCode);
+        if (requestCode == SETUP_FINGERPRINT) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
@@ -1187,7 +1170,6 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 finish();
             }
         }.execute();
-
     }
 
     @Override
@@ -1231,35 +1213,35 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         }
     }
 
-    public int getPasswordInitialMethod() {
+    private int getPasswordInitialMethod() {
         return passwordInitialMethod;
     }
 
-    public void setPasswordInitialMethod(int passwordInitialMethod) {
+    private void setPasswordInitialMethod(int passwordInitialMethod) {
         this.passwordInitialMethod = passwordInitialMethod;
     }
 
-    public String getPreliminary() {
+    private String getPreliminary() {
         return preliminary;
     }
 
-    public void setPreliminary(String preliminary) {
+    private void setPreliminary(String preliminary) {
         this.preliminary = preliminary;
     }
 
-    public int getCurrentLength() {
+    private int getCurrentLength() {
         return currentLength;
     }
 
-    public void setCurrentLength(int currentLength) {
+    private void setCurrentLength(int currentLength) {
         this.currentLength = currentLength;
     }
 
-    public int getCurrentTries() {
+    private int getCurrentTries() {
         return currentTries;
     }
 
-    public void setCurrentTries(int currentTries) {
+    private void setCurrentTries(int currentTries) {
         this.currentTries = currentTries;
     }
 

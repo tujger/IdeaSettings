@@ -32,14 +32,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Account.initialize(getApplicationContext());
 
-        /*PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                .putString(LockActivity.PREF_SECURITY_METHOD, null).commit();//FIXME remove
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                .putString(LockActivity.PASSWORD, null).commit();//FIXME remove
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit()
-                .putString(LockActivity.PIN, null).commit();//FIXME remove*/
-
-
         securityMethod = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(LockActivity.PREF_SECURITY_METHOD, null);
 
         if (showSplashScreen = checkSplashScreen()) {
@@ -54,11 +46,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
 
         if (showSplashScreen) {
-//            ActionBar actionBar = getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.hide();
-//            }
-
             mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -77,27 +64,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
-//					Account s = Account.getCurrentAccount();
-//					Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//					System.out.println("A:"+intent.getExtras()+":"+s);
-//					if(s!=null){
-//						Log.i("Splash",s.toString());
-////						intent.putExtra(AddAccountActivity.ACTION,Account.ACCOUNT_CURRENT_ID);
-//					}
-                    System.out.println("LOGIN GRANTED");
-
-//					startActivity(intent);
                 }
                 finish();
             }
         };
 
-        if(Account.getCount() == 0) {
+        if (Account.getCount() == 0) {
             findViewById(R.id.pb_splash).setVisibility(View.GONE);
             findViewById(R.id.tv_splash).setVisibility(View.GONE);
             Intent intent = new Intent(getBaseContext(), AddAccountActivity.class);
             startActivityForResult(intent, REQUEST_ADD_ACCOUNT);
-        }else if (securityMethod != null && !"".equals(securityMethod)) {
+        } else if (securityMethod != null && !"".equals(securityMethod)) {
             findViewById(R.id.pb_splash).setVisibility(View.GONE);
             findViewById(R.id.tv_splash).setVisibility(View.GONE);
             Intent intent = new Intent(getBaseContext(), LockActivity.class);
@@ -105,8 +82,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         } else {
             mHandler.postDelayed(mStartMain, showSplashScreen ? 2000 : 0);
         }
-
-
     }
 
     @Override
@@ -138,7 +113,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         mHandler.removeCallbacks(mStartMain);
     }
 
-
     /**
      * Check for necessary of showing SplashScreen
      */
@@ -163,5 +137,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
         return res;
     }
-
 }

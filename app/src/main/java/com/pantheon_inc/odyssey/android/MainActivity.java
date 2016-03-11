@@ -14,12 +14,10 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +30,12 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.pantheon_inc.odyssey.R;
 import com.pantheon_inc.odyssey.android.helpers.Account;
 import com.pantheon_inc.odyssey.android.helpers.OdysseyWebView;
@@ -71,13 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
     //save our header or drawer
     private AccountHeader headerResult = null;
-    private DrawerBuilder resultNormal = null, resultError = null;
     private Drawer drawer = null;
     private HashMap<Integer, Account> accounts;
     private int selectedAccount;
     private OdysseyWebView wv;
     private static Handler uiHandler;
-
 
     private boolean regularDrawer = false;
 
@@ -155,11 +149,9 @@ public class MainActivity extends AppCompatActivity {
                 if ((res & WebAppInterface.ACTION_REFRESH) == WebAppInterface.ACTION_REFRESH) {
                     setRefreshDrawer();
                     new SwitchToAccount(selectedAccount).go();
-//                  wv.login();
                 }
                 if ((res & WebAppInterface.ACTION_SHOW_REFRESH) == WebAppInterface.ACTION_SHOW_REFRESH) {
                     setRefreshDrawer();
-//                  wv.login();
                 }
             }
         };
@@ -192,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 IProfile p = new ProfileDrawerItem()
                         .withIdentifier(i)
                         .withName(s.hasTitle() ? s.getTitle().toUpperCase() : s.getUsername().toUpperCase())
-                        .withEmail(s.hasTitle() ? "as " + (s.getUsername()) : s.getUrl().toString())
+                        .withEmail(s.hasTitle() ? getString(string.as_user, s.getUsername()) : s.getUrl().toString())
                         .withNameShown(true)
                         .withIcon(getRelatedIcon(s));
 
@@ -262,28 +254,19 @@ public class MainActivity extends AppCompatActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
 //                .withItemAnimator(new AlphaCrossFadeAnimator())
-                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                .withAccountHeader(headerResult)
                 .addDrawerItems(
-//                        new PrimaryDrawerItem().withName(string.refresh).withIcon(GoogleMaterial.Icon.gmd_refresh).withIdentifier(MENU_REFRESH),
-//                        new SectionDrawerItem().withName(string.general),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(string.options).withIcon(GoogleMaterial.Icon.gmd_mode_edit).withIdentifier(MENU_ACCOUNT_OPTIONS).withSelectable(false),
                         new PrimaryDrawerItem().withName(string.help).withIcon(GoogleMaterial.Icon.gmd_help_outline).withIdentifier(MENU_ACCOUNT_HELP).withSelectable(false)
 //                        new SecondaryDrawerItem().withName(string.help).withIcon(getResources().getDrawable(drawable.ic_help_outline_black_24dp)).withIdentifier(MENU_HELP),
-                ) // add the items we want to use with our Drawer
+                )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        //check if the drawerItem is set.
-                        //there are different reasons for the drawerItem to be null
-                        //--> click on the header
-                        //--> click on the footer
-                        //those items don't contain a drawerItem
-
                         if (drawerItem != null) {
                             Intent intent = null;
 
-                            //http://piusvs023:8080/odyssey/index.ody?hlk=eac04999&M.URL_PARAM=true&M.URL_HEADLESS=true&M.AUTO_DEPLOY=true&M.USER_ID=reepaa&M.PASSWORD=Test12
                             switch ((int) drawerItem.getIdentifier()) {
                                 case MENU_APPS:
                                     setTitle(string.apps);
@@ -317,7 +300,6 @@ public class MainActivity extends AppCompatActivity {
                                     System.out.println("REFRESH");
                                     setRefreshDrawer();
                                     new SwitchToAccount(selectedAccount).go();
-//                                    wv.login();
                                     break;
                             }
 
@@ -338,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new SwitchToAccount(selectedAccount).go();
-//                wv.login();
             }
         });
 
@@ -364,10 +345,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Drawable getRelatedIcon(Account account) {
-        //https://github.com/amulyakhare/TextDrawable
-//        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
-//        int color = generator.getColor(account.getUrl().toString() + account.getUsername());
-
         String str;
         if (account.hasTitle()) str = account.getTitle();
         else str = account.getUsername();
@@ -454,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
                 final View content = getLayoutInflater().inflate(layout.activity_options, null);
                 final TextView mWarning = (TextView) content.findViewById(R.id.tvWarning);
                 final EditText etPassword = (EditText) content.findViewById(R.id.etPassword);
-                final CheckBox cbRememberPassword = (CheckBox) content.findViewById(R.id.cbRememberPassword);
+                final Switch swRememberPassword = (Switch) content.findViewById(R.id.swRememberPassword);
 
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
@@ -490,12 +467,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String str = etPassword.getText().toString();
 
-
                         if (str.length() > 0) {
                             sta.getAccount().setRememberPassword(false);
                             sta.getAccount().setSessionId("");
                             sta.getAccount().setPassword(str);
-                            if (cbRememberPassword.isChecked()) {
+                            if (swRememberPassword.isChecked()) {
                                 sta.getAccount().setRememberPassword(true);
                             }
                             sta.getAccount().save();
@@ -510,13 +486,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        private void cancelClicked(AlertDialog v){
+        private void cancelClicked(AlertDialog v) {
             Utils.sendHandlerMessage(uiHandler, WebAppInterface.ACTION_HIDE_ALL | WebAppInterface.ACTION_SHOW_ERROR, getString(string.password_required));
             v.dismiss();
         }
 
         private void doLogin() {
-
             findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
             findViewById(R.id.sv_login_form).setVisibility(View.GONE);
             findViewById(R.id.layout_fatal_error).setVisibility(View.GONE);
@@ -533,18 +508,6 @@ public class MainActivity extends AppCompatActivity {
             this.account = account;
         }
     }
-
-
-    private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
-            if (drawerItem instanceof Nameable) {
-                Log.i("material-drawer", "DrawerItem: " + ((Nameable) drawerItem).getName() + " - toggleChecked: " + isChecked);
-            } else {
-                Log.i("material-drawer", "toggleChecked: " + isChecked);
-            }
-        }
-    };
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

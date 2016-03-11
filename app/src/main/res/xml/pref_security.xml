@@ -5,31 +5,31 @@
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
         android:defaultValue=""
-        android:entries="@array/pref_security_method_titles"
-        android:entryValues="@array/pref_security_method_values"
+        android:entries="@array/security_method_titles"
+        android:entryValues="@array/security_method_values"
         android:key="securityMethod"
         android:positiveButtonText="@null"
-        android:summary="@string/pref_description_security_method"
-        android:title="@string/pref_title_security_method"/>
+        android:summary="@string/security_method_summary"
+        android:title="@string/security_method"/>
 
     <Preference
         android:key="security_method_pattern"
-        android:title="@string/pref_title_pattern"
+        android:title="@string/pattern"
         />
 
     <Preference
         android:key="security_method_pin"
-        android:title="@string/pref_title_pin"
+        android:title="@string/pin"
         />
 
     <Preference
         android:key="security_method_password"
-        android:title="@string/pref_title_password"
+        android:title="@string/password"
         />
 
     <Preference
         android:key="security_method_fingerprint"
-        android:title="@string/pref_title_fingerprint"
+        android:title="@string/fingerprint"
         />
 
     <EditTextPreference

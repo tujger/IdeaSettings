@@ -27,7 +27,6 @@ public class Utils {
     public static final int FINGERPRINT_NOT_ALLOWED = 8;
 
 
-
     private static int fingerprintMode;
 
     public static String getUrl(String url) throws IOException {
@@ -98,8 +97,13 @@ public class Utils {
         return getEncryptedHash(str, 5);
     }
 
-    public static String getEncryptedHash(String str, int type) {
+    public static final int DIGEST_METHOD_MD2 = 2;
+    public static final int DIGEST_METHOD_MD5 = 5;
+    public static final int DIGEST_METHOD_SHA1 = 1;
+    public static final int DIGEST_METHOD_SHA256 = 256;
+    public static final int DIGEST_METHOD_SHA512 = 512;
 
+    public static String getEncryptedHash(String str, int type) {
         String sType;
         switch (type) {
             case 1:
@@ -114,17 +118,12 @@ public class Utils {
             case 256:
                 sType = "SHA-256";
                 break;
-            case 384:
-                sType = "SHA-256";
-                break;
             case 512:
                 sType = "SHA-512";
                 break;
             default:
                 sType = "SHA-512";
         }
-
-//        System.out.println("GET HASH (" + sType + ") FOR: " + str);
 
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(sType);
@@ -142,7 +141,7 @@ public class Utils {
         }
     }
 
-    public static int getIdResourceByName(Context context, String aString){
+    public static int getIdResourceByName(Context context, String aString) {
         String packageName = context.getPackageName();
         return context.getResources().getIdentifier(aString, "id", packageName);
     }
@@ -156,41 +155,40 @@ public class Utils {
         Utils.fingerprintMode = fingerprintMode;
     }
 
-    public static void checkFingerprintHardware(Context context){
+    public static void checkFingerprintHardware(Context context) {
         System.out.println("CHECK FINGERPRINT HARDWARE");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        System.out.println("B");
+            System.out.println("B");
             FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-        System.out.println("C");
+                System.out.println("C");
                 setFingerprintMode(FINGERPRINT_NOT_ALLOWED);
-            }else {
+            } else {
                 if (!fingerprintManager.isHardwareDetected()) {// Device doesn't support fingerprint authentication
-        System.out.println("D");
+                    System.out.println("D");
                     setFingerprintMode(FINGERPRINT_NOT_ALLOWED | FINGERPRINT_HARDWARE_NOT_DETECTED);
                 } else if (!fingerprintManager.hasEnrolledFingerprints()) {// User hasn't enrolled any fingerprints to authenticate with
-        System.out.println("E");
+                    System.out.println("E");
                     setFingerprintMode(FINGERPRINT_HARDWARE_DETECTED);
                 } else {// Everything is ready for fingerprint authentication
-        System.out.println("F");
+                    System.out.println("F");
                     setFingerprintMode(FINGERPRINT_HARDWARE_DETECTED | FINGERPRINT_HAS_ENROLLED_FINGERPRINTS);
                 }
             }
-        }else{
-        System.out.println("G");
+        } else {
+            System.out.println("G");
             setFingerprintMode(FINGERPRINT_NOT_ALLOWED | FINGERPRINT_HARDWARE_NOT_DETECTED);
         }
     }
 
-    public static void sendHandlerMessage(Handler uiHandler, int flags, String message){
+    public static void sendHandlerMessage(Handler uiHandler, int flags, String message) {
         Message m = uiHandler.obtainMessage();
         Bundle uB = m.getData();
         uB.putInt(WebAppInterface.ACTION, flags);
-        if(message!= null && !"".equals(message)) {
+        if (message != null && !"".equals(message)) {
             uB.putString(WebAppInterface.ACTION_COMMENT, message);
         }
         m.setData(uB);
         uiHandler.sendMessage(m);
     }
-
 }
