@@ -44,8 +44,29 @@ public class OdysseyWebView extends WebView {
         this.context = context;
         if (!isInEditMode()) {
 
+            /*setDownloadListener(new DownloadListener() {
+                public void onDownloadStart(String url, String userAgent,
+                                            String contentDisposition, String mimetype,
+                                            long contentLength) {
+
+                    System.out.println("DOWNLOAD START");
+
+                    DownloadManager.Request request = new DownloadManager.Request(
+                            Uri.parse(url));
+                    request.allowScanningByMediaScanner();
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "download");
+                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                    dm.enqueue(request);
+
+                }
+            });*/
+
+
+
             WebSettings webSettings = getSettings();
             webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
             webSettings.setSupportZoom(false);
             webSettings.setSupportMultipleWindows(false);
 
@@ -60,8 +81,9 @@ public class OdysseyWebView extends WebView {
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    System.out.println("SHOULD OVERRIDE " + url);
                     view.loadUrl(url);
-                    return false;
+                    return true;
                 }
 
                 @Override
@@ -82,8 +104,18 @@ public class OdysseyWebView extends WebView {
                     super.onPageFinished(view, url);
                     System.out.println("PAGE FINISHED = " + url);
 
-                    String a = Utils.readAsset(context.getAssets(), getApiType());
-                    view.loadUrl("javascript:" + a + getApi());
+                    System.out.println("===================REQUESTS " + wai.getRequestsCounter());
+                    if (wai.getRequestsCounter() > 5) {
+                        Message m = uiHandler.obtainMessage();
+                        Bundle uB = m.getData();
+                        uB.putInt(WebAppInterface.ACTION, WebAppInterface.ACTION_HIDE_ALL | WebAppInterface.ACTION_SHOW_ERROR);
+                        uB.putString(WebAppInterface.ACTION_COMMENT, context.getString(R.string.network_error));
+                        m.setData(uB);
+                        uiHandler.sendMessage(m);
+                    } else {
+                        String a = Utils.readAsset(context.getAssets(), getApiType());
+                        view.loadUrl("javascript:" + a + getApi());
+                    }
                 }
             });
             clearCache(true);
@@ -150,6 +182,7 @@ public class OdysseyWebView extends WebView {
         System.out.println("DO LOGIN. SESSIONID " + account.getSessionId());
 
         wai.hide();
+        clearCache(true);//FIXME can be removed at the release stage
 
         new AsyncTask<Object, Boolean, Boolean>() {
             @Override
@@ -283,5 +316,8 @@ public class OdysseyWebView extends WebView {
         return super.saveState(outState);
     }
 
+    public void resetRequestsCounter() {
+        wai.resetRequestsCounter();
+    }
 };
 

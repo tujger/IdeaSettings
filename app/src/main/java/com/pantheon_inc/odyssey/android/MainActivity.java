@@ -423,6 +423,8 @@ public class MainActivity extends AppCompatActivity {
         public void go() {
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(Account.ACCOUNT_CURRENT_ID, id).apply();
 
+            wv.resetRequestsCounter();
+
             if (accounts.get(id).hasPassword()) {
                 doLogin();
             } else {

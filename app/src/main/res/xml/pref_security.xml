@@ -9,7 +9,7 @@
         android:entryValues="@array/security_method_values"
         android:key="securityMethod"
         android:positiveButtonText="@null"
-        android:summary="@string/security_method_summary"
+        android:summary="@null"
         android:title="@string/security_method"/>
 
     <Preference

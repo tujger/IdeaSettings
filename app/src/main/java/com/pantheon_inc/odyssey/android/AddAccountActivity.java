@@ -11,7 +11,9 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -102,6 +104,7 @@ public class AddAccountActivity extends AppCompatActivity {
         mOk = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         mWarning.setVisibility(View.GONE);
 
+
         mUrlView = (EditText) content.findViewById(R.id.etServer);
         mUrlView.setText("http://");
         mUrlView.setSelection("http://".length());
@@ -121,7 +124,13 @@ public class AddAccountActivity extends AppCompatActivity {
             }
         });
 
+        OnEditTextLengthChanged y = new OnEditTextLengthChanged();
+        mUrlView.addTextChangedListener(y);
+        mUsernameView.addTextChangedListener(y);
+        mPasswordView.addTextChangedListener(y);
+
         mOk.setOnClickListener(new OnLoginConfirm());
+        mOk.setEnabled(false);
 
         mLoginFormView = content.findViewById(R.id.layoutForm);
 
@@ -130,6 +139,41 @@ public class AddAccountActivity extends AppCompatActivity {
 
         content.findViewById(R.id.vTitle).setVisibility(View.GONE);
         content.findViewById(R.id.swRememberPassword).setVisibility(View.GONE);
+    }
+
+    private class OnEditTextLengthChanged implements TextWatcher {
+        private String re = "^https?:\\/\\/\\S+\\.[\\w]{2,}(:\\d+)?$";
+
+        public OnEditTextLengthChanged() {
+            this.onTextChanged("", 0, 0, 0);
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            boolean a = true;
+            if (mPasswordView.getText().toString().length() > 0 && mPasswordView.getText().toString().length() < 6) {
+                a = false;
+            }
+            if (mUsernameView.getText().toString().length() < 2) {
+                a = false;
+            }
+            if (!mUrlView.getText().toString().matches(re)) {
+                a = false;
+            }
+            if (a) {
+                mOk.setEnabled(true);
+            } else {
+                mOk.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
     }
 
     private class OnClickHolder implements DialogInterface.OnClickListener {
@@ -351,8 +395,8 @@ public class AddAccountActivity extends AppCompatActivity {
                             mUrlView.setError(errorMessage);
                             break;
                     }
-                    if(timeout>0){
-                        new AsyncTask<Integer,Integer,Void>(){
+                    if (timeout > 0) {
+                        new AsyncTask<Integer, Integer, Void>() {
                             @Override
                             protected void onPreExecute() {
                                 super.onPreExecute();
@@ -361,9 +405,9 @@ public class AddAccountActivity extends AppCompatActivity {
 
                             @Override
                             protected Void doInBackground(Integer... params) {
-                                int i=timeout;
+                                int i = timeout;
                                 publishProgress(i);
-                                while(i>0) {
+                                while (i > 0) {
                                     publishProgress(i);
                                     try {
                                         Thread.sleep(1000);
@@ -378,7 +422,7 @@ public class AddAccountActivity extends AppCompatActivity {
                             @Override
                             protected void onProgressUpdate(Integer... values) {
                                 super.onProgressUpdate(values);
-                                mWarning.setText(getString(R.string.you_can_try_after_seconds,values));
+                                mWarning.setText(getString(R.string.you_can_try_after_seconds, values));
                                 mWarning.setVisibility(View.VISIBLE);
                             }
 

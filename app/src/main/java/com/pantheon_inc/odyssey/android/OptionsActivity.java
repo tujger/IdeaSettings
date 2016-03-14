@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +52,7 @@ public class OptionsActivity extends AppCompatActivity {
         etLogin.setEnabled(false);
 
         etPassword.setText(account.getPassword());
+        etPassword.addTextChangedListener(new OnPasswordFieldLengthChanged());
 
         mNeutral.setVisibility(View.GONE);
         mOk.setOnClickListener(new OnConfirm());
@@ -72,6 +75,29 @@ public class OptionsActivity extends AppCompatActivity {
         dialog.show();
         mOk = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         mNeutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+    }
+
+    private class OnPasswordFieldLengthChanged implements TextWatcher {
+        public OnPasswordFieldLengthChanged() {
+            this.onTextChanged("", 0, 0, 0);
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (etPassword.getText().toString().length() == 0 || etPassword.getText().toString().length() >= 6) {
+                mOk.setEnabled(true);
+            } else {
+                mOk.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
     }
 
     private class OnCancelListener implements DialogInterface.OnCancelListener, DialogInterface.OnClickListener {

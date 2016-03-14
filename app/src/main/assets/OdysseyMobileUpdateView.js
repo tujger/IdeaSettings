@@ -1,5 +1,8 @@
 window.console.log("INSTALL ODYSSEY MOBILE API");
 function OdysseyMobileUpdateView(newMode){
+
+	OdysseyMobileAPI.increaseRequestsCounter();
+
 	var getMode = function(newM){
 	    if(newM)window.OdysseyMobileMode = newM*1;
 	    return window.OdysseyMobileMode;
@@ -124,8 +127,18 @@ function OdysseyMobileUpdateView(newMode){
                     p.style.width = "100%";
                     p.style.height = "100%";
                 }
+                p = document.getElementById("modalLookupFrame");
+                if(p){
+                    p = p.contentDocument || p.contentWindow.document;
+                    if(p){
+                        p = p.body.getElementsByClassName("deployPropertyFormContainer")[0];
+                        if(p){
+		                    p.style.width = "100%";
+		                    p.style.height = "100%";
+                        }
+                    }
+                }
             }
-
 	    }
 		setTimeout(function(){OdysseyMobileAPI.show();},100)
 
@@ -133,5 +146,7 @@ function OdysseyMobileUpdateView(newMode){
 		console.log("ERROR "+e);
         OdysseyMobileAPI.error(e.message);
 	}
+
+	OdysseyMobileAPI.resetRequestsCounter();
 
 };

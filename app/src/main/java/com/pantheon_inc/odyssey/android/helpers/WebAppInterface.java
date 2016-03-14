@@ -8,9 +8,7 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 public class WebAppInterface {
-    Context mContext;
 
-    private Handler uiHandler;
 
     public static final String ACTION = "action";
     public static final int ACTION_SHOW_WEBVIEW = 1;
@@ -26,6 +24,9 @@ public class WebAppInterface {
     public static final int ACTION_REFRESH = 1024;
     public static final String ACTION_COMMENT = "comment";
 
+    private Handler uiHandler;
+    private Context mContext;
+    private int requestsCounter = 0;
 
     /**
      * Instantiate the interface and set the context
@@ -106,6 +107,20 @@ public class WebAppInterface {
         uB.putInt(ACTION, ACTION_HIDE_ALL | ACTION_REFRESH);
         m.setData(uB);
         uiHandler.sendMessage(m);
+    }
+
+    @JavascriptInterface
+    public void increaseRequestsCounter() {
+        requestsCounter++;
+    }
+
+    @JavascriptInterface
+    public void resetRequestsCounter() {
+        requestsCounter = 0;
+    }
+
+    public int getRequestsCounter() {
+        return requestsCounter;
     }
 
     public Handler getUiHandler() {
