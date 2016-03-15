@@ -39,7 +39,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -142,7 +144,7 @@ public class AddAccountActivity extends AppCompatActivity {
     }
 
     private class OnEditTextLengthChanged implements TextWatcher {
-        private String re = "^https?:\\/\\/\\S+\\.[\\w]{2,}(:\\d+)?$";
+        private String re = "^https?:\\/\\/\\S+(\\.[\\w]{2,})?(:\\d+)?$";
 
         public OnEditTextLengthChanged() {
             this.onTextChanged("", 0, 0, 0);
@@ -159,6 +161,9 @@ public class AddAccountActivity extends AppCompatActivity {
                 a = false;
             }
             if (mUsernameView.getText().toString().length() < 2) {
+                a = false;
+            }
+            if (mUrlView.getText().toString().length() < 8) {
                 a = false;
             }
             if (!mUrlView.getText().toString().matches(re)) {
@@ -276,10 +281,6 @@ public class AddAccountActivity extends AppCompatActivity {
                 mUrlView.setError(getString(R.string.url_invalid));
                 focusView = mUrlView;
                 cancel = true;
-            } else if (url.length() < 11) {
-                mUrlView.setError(getString(R.string.url_too_short));
-                focusView = mUrlView;
-                cancel = true;
             } else if (url.matches("^https?:\\\\/\\\\/")) {
                 mUrlView.setError(getString(R.string.url_invalid));
                 focusView = mUrlView;
@@ -321,23 +322,31 @@ public class AddAccountActivity extends AppCompatActivity {
                         .timeOut(15000)
                         .showError(true) //Show error with toast on Network or Server error
                         .shouldCache(true)
-                        .addToHeader("deviceid", deviceId)
-                        .addToHeader("platformtype", deviceName)
-                        .addToHeader("platformid", "android")
+                        .addToHeader("deviceid", deviceId)//FIXME remove
+                        .addToHeader("platformtype", deviceName)//FIXME remove
+                        .addToHeader("platformid", "android")//FIXME remove
                         .buildObjectRequester(new RestRequester());
 
                 String link = url + "/odyssey/rhaps.ody?";
                 ArrayList<String> pars = new ArrayList<>();
                 pars.add("action=getVersion");
-                if (!TextUtils.isEmpty(username)) {
-                    pars.add("action=checkUserid");
-                    pars.add("userid=" + username);
-                }
-                if (!TextUtils.isEmpty(password)) {
-                    pars.add("password=" + password);
-                }
 
+                try {
+                    if (!TextUtils.isEmpty(username)) {
+                        pars.add("action=checkUserid");
+                        pars.add("deviceid=" + URLEncoder.encode(deviceId, "UTF-8"));
+                        pars.add("platformtype=" + URLEncoder.encode(deviceName, "UTF-8"));
+                        pars.add("platformid=android");
+                        pars.add("userid=" + URLEncoder.encode(username, "UTF-8"));
+                    }
+                    if (!TextUtils.isEmpty(password)) {
+                        pars.add("password=" + URLEncoder.encode(password, "UTF-8"));
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 link += TextUtils.join("&", pars);
+
                 mRequester.request(Methods.GET, link);
             }
         }
@@ -453,7 +462,7 @@ public class AddAccountActivity extends AppCompatActivity {
                     new Account().setUrl(url).setUsername(username).setPassword(password).add();
 
                     Intent intent = new Intent(AddAccountActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
                     Toast.makeText(getApplicationContext(), R.string.odyssey_account_added, Toast.LENGTH_SHORT).show();

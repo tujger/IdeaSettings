@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.pantheon_inc.odyssey.R;
 import com.pantheon_inc.odyssey.android.helpers.Account;
 
@@ -54,8 +57,8 @@ public class OptionsActivity extends AppCompatActivity {
         etPassword.setText(account.getPassword());
         etPassword.addTextChangedListener(new OnPasswordFieldLengthChanged());
 
-        mNeutral.setVisibility(View.GONE);
         mOk.setOnClickListener(new OnConfirm());
+//        mNeutral.setVisibility(View.GONE);
     }
 
     private void prepareAndShowDialog() {
@@ -66,7 +69,7 @@ public class OptionsActivity extends AppCompatActivity {
         OnCancelListener x = new OnCancelListener();
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), x);
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), x);
-        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.password), x);
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.delete), new OnDeleteListener());
 
         dialog.setTitle(R.string.account_options);
         dialog.setOnCancelListener(x);
@@ -115,6 +118,47 @@ public class OptionsActivity extends AppCompatActivity {
             Intent intent = new Intent();
             setResult(RESULT_CANCELED, intent);
             finish();
+        }
+    }
+
+    private class OnDeleteListener implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+
+            AlertDialog deleteDialog = new AlertDialog.Builder(OptionsActivity.this).create();
+
+            deleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new OnDeleteConfirm());
+            deleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), new OnCancelListener());
+
+            deleteDialog.setIcon(new IconicsDrawable(OptionsActivity.this, GoogleMaterial.Icon.gmd_warning).actionBarSize());
+            deleteDialog.setTitle(getString(R.string.delete_account_question));
+            deleteDialog.setMessage(getString(R.string.delete_account_message));
+            deleteDialog.show();
+        }
+    }
+
+    private class OnDeleteConfirm implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if(account.delete()) {
+                Toast.makeText(getApplicationContext(), R.string.odyssey_account_deleted,Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+                if(Account.getCount()>0) {
+                    intent = new Intent(OptionsActivity.this, MainActivity.class);
+                }else{
+                    intent = new Intent(OptionsActivity.this, SplashScreenActivity.class);
+                }
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(), R.string.error_deleting_odyssey_account,Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
+            }
         }
     }
 

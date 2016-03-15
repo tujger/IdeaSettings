@@ -104,7 +104,6 @@ public class OdysseyWebView extends WebView {
                     super.onPageFinished(view, url);
                     System.out.println("PAGE FINISHED = " + url);
 
-                    System.out.println("===================REQUESTS " + wai.getRequestsCounter());
                     if (wai.getRequestsCounter() > 5) {
                         Message m = uiHandler.obtainMessage();
                         Bundle uB = m.getData();
@@ -243,13 +242,12 @@ public class OdysseyWebView extends WebView {
         setApi(context.getString(R.string.api_view, MainActivity.MENU_INBOX));
 //        loadUrl("javascript:MobileUpdateView("+MainActivity.MENU_INBOX+");");
         if (sId) {
-            System.out.println("REGULAR CLICK");
+//            System.out.println("REGULAR CLICK");
             loadUrl(account.getUrl().toString());
         } else {
-            System.out.println("CLICK TO APP BUTTON");
+//            System.out.println("CLICK TO APP BUTTON");
             loadUrl("javascript:if(!document.getElementById('dbAppPanel'))document.getElementById('dbAppButton').children[0].onclick();else window.location.pathname = '/odyssey/index.ody';");
         }
-
     }
 
     public void switchToApps() {

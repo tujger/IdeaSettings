@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 .withNameTypeface(Typeface.DEFAULT_BOLD)
                 .withTextColor(Color.BLACK);
 
+
         accounts = new HashMap<>();
         int x = 0;
         for (int i = 1; i <= Account.getLastId(); i++) {
@@ -199,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
 
         ahb.addProfiles(
                 new ProfileSettingDrawerItem().withName(getString(string.add_account)).withDescription(getString(string.add_odyssey_account)).withIcon(GoogleMaterial.Icon.gmd_add).withIdentifier(MENU_ADD_ACCOUNT),
-                new ProfileSettingDrawerItem().withName(getString(string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(MENU_SETTINGS),
-                new ProfileSettingDrawerItem().withName(getString(string.help)).withIcon(GoogleMaterial.Icon.gmd_help).withIdentifier(MENU_HELP)
+                new ProfileSettingDrawerItem().withName(getString(string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(MENU_SETTINGS)
+//                new ProfileSettingDrawerItem().withName(getString(string.help)).withIcon(GoogleMaterial.Icon.gmd_help).withIdentifier(MENU_HELP)
         )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -297,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
                                     System.out.println("ACCOUNT HELP " + url);
                                     break;
                                 case MENU_REFRESH:
-                                    System.out.println("REFRESH");
                                     setRefreshDrawer();
                                     new SwitchToAccount(selectedAccount).go();
                                     break;
@@ -334,7 +334,9 @@ public class MainActivity extends AppCompatActivity {
             if (accounts.get(selectedAccount) == null) {
                 selectedAccount = Account.getLastId();
             }
-            System.out.println("ACCOUNT =" + selectedAccount);
+            if (accounts.get(selectedAccount) == null) {
+                selectedAccount = Account.getFirstId();
+            }
 
             headerResult.setActiveProfile(selectedAccount);
             new SwitchToAccount(selectedAccount).go();
@@ -415,7 +417,6 @@ public class MainActivity extends AppCompatActivity {
         public SwitchToAccount(int accountId) {
             this.id = accountId;
             sta = this;
-            System.out.println("TRYING TO SET ACTIVE PROFILE " + accountId);
             setAccount(accounts.get(accountId));
             wv.setAccount(accounts.get(accountId));
         }

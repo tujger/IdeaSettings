@@ -7,12 +7,13 @@ import android.preference.PreferenceManager;
 
 import com.pantheon_inc.odyssey.R;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Account {
-    private static final String ACCOUNT_LAST_ID = "accountLastId";
+    public static final String ACCOUNT_LAST_ID = "accountLastId";
     public static final String ACCOUNT_CURRENT_ID = "accountCurrentId";
     public static final String ACCOUNT_URL = "url";
     private static final String ACCOUNT_TITLE = "title";
@@ -93,16 +94,36 @@ public class Account {
 
         int lastId = Account.getLastId();
         SharedPreferences sp;
+        File file;
+
+        for (int i = 1; i <= lastId; i++) {
+            file = new File(context.getFilesDir().getParent() + "/shared_prefs", "account_" + i + ".xml");
+            if (!file.exists()) continue;
+
+            sp = context.getSharedPreferences("account_" + i,
+                    Context.MODE_PRIVATE);
+            if (!sp.contains(ACCOUNT_URL)) continue;
+            ++count;
+        }
+
+        return count;
+    }
+
+    /**
+     * Returns the ID of first registered account.
+     */
+    public static int getFirstId() {
+        int lastId = Account.getLastId();
+        SharedPreferences sp;
 
         for (int i = 1; i <= lastId; i++) {
             sp = context.getSharedPreferences("account_" + i,
                     Context.MODE_PRIVATE);
 
             if (sp.contains(ACCOUNT_URL))
-                ++count;
+                return i;
         }
-
-        return count;
+        return 0;
     }
 
     public Account() {
@@ -128,6 +149,10 @@ public class Account {
      * @return <code>true</code> if success, <code>false</code> otherwise
      */
     public boolean load(int id) {
+
+        File file = new File(context.getFilesDir().getParent() + "/shared_prefs", "account_" + id + ".xml");
+        if (!file.exists()) return false;
+
         SharedPreferences sp = context.getSharedPreferences("account_" + id,
                 Context.MODE_PRIVATE);
 
@@ -176,7 +201,6 @@ public class Account {
      * Saves account properties to the preferences file.
      */
     public boolean save() {
-
         if (!(id > 0)) {
             try {
                 throw new Exception(context.getString(R.string.identifier_not_defined));
@@ -186,8 +210,7 @@ public class Account {
             }
         }
 
-        SharedPreferences sp = context.getSharedPreferences("account_" + id,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences("account_" + id, Context.MODE_PRIVATE);
         Editor editor = sp.edit();
 
         editor.putString(ACCOUNT_URL, url.toString());
@@ -198,6 +221,17 @@ public class Account {
 
         return editor.commit();
     }
+
+    public boolean delete() {
+        boolean res = false;
+        File file = new File(context.getFilesDir().getParent() + "/shared_prefs", "account_" + id + ".xml");
+        if (file.exists() && file.delete()) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(ACCOUNT_CURRENT_ID, 0).commit();
+            res = true;
+        }
+        return res;
+    }
+
 
     /**
      * Checks accessibility of the server and its Odyssey relation.
@@ -216,7 +250,6 @@ public class Account {
     }
 
     public URL getUrl() {
-        System.out.println("URI: " + url.toString());
         return url;
     }
 
@@ -226,7 +259,6 @@ public class Account {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        System.out.println("URL: " + this.url);
         return this;
     }
 
@@ -269,7 +301,8 @@ public class Account {
     public String toString() {
         return "Id:" + id
                 + (hasTitle() ? ", Title: " + title : "")
-                + ", Uri:" + url + " Username:" + username;
+                + ", Url:" + url + " Username:" + username
+                + (hasSessionId() ? ", SessionID: " + sessionId : "");
     }
 
     public boolean isErrorState() {

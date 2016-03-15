@@ -69,6 +69,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         };
 
+//        if (getIntent().hasExtra(DO_NOT_LOCK)) {//set specific action
+//            Integer action = getIntent().getExtras().getInt(ACTION);
+//
+
         if (Account.getCount() == 0) {
             findViewById(R.id.pb_splash).setVisibility(View.GONE);
             findViewById(R.id.tv_splash).setVisibility(View.GONE);

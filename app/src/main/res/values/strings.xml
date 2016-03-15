@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
 
     <!-- general -->
     <string name="app_name" translatable="false">Odyssey</string>
@@ -8,18 +8,18 @@
 
     <!-- unlock screen -->
     <string name="lock">Lock</string>
-    <string name="you_can_try_after_seconds">You can try after %s second(s)</string>
+    <string name="you_can_try_after_seconds">You can try again after %s second(s).</string>
 
     <!-- unlock screen - pattern -->
     <string name="check_pattern">Check pattern</string>
-    <string name="draw_over_at_least_dots">Draw over at least 4 dots</string>
-    <string name="pattern_not_accepted">Pattern not accepted. Please try again</string>
+    <string name="draw_over_at_least_dots">Draw a pattern of at least 4 dots.</string>
+    <string name="pattern_not_accepted">Pattern not accepted. Please try again.</string>
 
     <!-- unlock screen - pin -->
     <string name="check_pin">Check pin</string>
-    <string name="pin_not_accepted">Pin not accepted. Please try again</string>
-    <string name="attempts_remaining">Attempts remaining: %d</string>
-    <string name="pin_locked_enter_password">Pin locked, enter your password</string>
+    <string name="pin_not_accepted">Pin not accepted. Please try again.</string>
+    <string name="attempts_remaining">Attempts remaining: %d.</string>
+    <string name="pin_locked_enter_password">Pin locked. Please enter your password.</string>
 
     <!-- unlock screen - password -->
     <string name="check_password">Check password</string>
@@ -28,9 +28,11 @@
 
     <!-- unlock screen - fingerprint -->
     <string name="check_fingerprint">Check fingerprint</string>
-    <string name="error_with_fingerprint">Error with fingerprint. Enter password</string>
-    <string name="fingerprint_denied">Fingerprint denied. Enter password</string>
-    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again.</string>
+    <string name="touch_sensor">Touch sensor</string>
+    <string name="access_granted">Access granted</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Please try again</string>
+    <string name="error_with_fingerprint">Error with fingerprint. Please enter your password.</string>
+    <string name="fingerprint_denied">Fingerprint denied. Please enter your password.</string>
 
     <!-- navigation drawer items -->
     <string name="apps">Apps</string>
@@ -50,28 +52,33 @@
     <string name="odyssey_url">Odyssey URL</string>
     <string name="userid">User ID</string>
     <string name="login">Login</string>
-    <string name="url_too_short">URL too short</string>
-    <string name="userid_too_short">User ID too short</string>
-    <string name="url_invalid">URL invalid</string>
+    <string name="url_too_short">URL too short.</string>
+    <string name="userid_too_short">User ID too short.</string>
+    <string name="url_invalid">URL invalid.</string>
     <string name="account_already_exists" formatted="false">The account for %s on %s already exists.</string>
-    <string name="password_too_short">Password too short</string>
-    <string name="password_incorrect">This password incorrect</string>
-    <string name="field_is_required">Field is required</string>
-    <string name="connection_error">Connection error</string>
-    <string name="odyssey_server_too_old">Odyssey Server version is too old</string>
-    <string name="your_device_is_incompatible_with_odyssey_server">Your device is incompatible with Odyssey server</string>
-    <string name="unknown_error">Unknown error</string>
-    <string name="odyssey_account_added">Odyssey account added</string>
-    <string name="error_adding_account">Error adding account</string>
+    <string name="password_too_short">Password too short.</string>
+    <string name="password_incorrect">Password incorrect.</string>
+    <string name="field_is_required">Field is required.</string>
+    <string name="connection_error">Connection error.</string>
+    <string name="odyssey_server_too_old">Odyssey Server version is too old.</string>
+    <string name="your_device_is_incompatible_with_odyssey_server">Your device is incompatible with Odyssey server.</string>
+    <string name="unknown_error">Unknown error.</string>
+    <string name="odyssey_account_added">Odyssey account added.</string>
+    <string name="error_adding_account">Error adding account.</string>
     <string name="identifier_not_defined">Identifier not defined.</string>
-    <string name="network_error">Network error. Please try again later</string>
+    <string name="network_error">Network error. Please try again later.</string>
 
     <!-- account options -->
     <string name="account_options">Account options</string>
     <string name="title">Title</string>
-    <string name="enter_odyssey_password">Enter Odyssey password</string>
+    <string name="enter_odyssey_password">Enter Odyssey password.</string>
     <string name="remember_password">Remember password</string>
-    <string name="password_required">Password required</string>
+    <string name="password_required">Password required.</string>
+    <string name="delete">Delete</string>
+    <string name="delete_account_question">Delete account?</string>
+    <string name="delete_account_message">Only removes the Odyssey account from device.</string>
+    <string name="odyssey_account_deleted">Odyssey account deleted.</string>
+    <string name="error_deleting_odyssey_account">Error deleting Odyssey account.</string>
 
     <!-- preferences -->
     <string name="security">Security</string>
@@ -87,15 +94,15 @@
     <string name="defined">Defined</string>
     <string name="you_must_set_up_password_first">You must set up the password first.</string>
     <string name="tries_before_delay">Tries before delay</string>
-    <string name="tries_before_delay_message">Will delay 30 seconds after some unsuccessful tries to login.</string>
+    <string name="tries_before_delay_message">Number of unsuccessful unlock attempts allowed before a several seconds delay.</string>
 
     <!-- preferences - security screen - pattern -->
     <string name="set_new_pattern">Set new pattern</string>
     <string name="continue_string">Continue</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_pattern">Confirm pattern</string>
-    <string name="pattern_not_confirmed">Pattern not confirmed</string>
-    <string name="pattern_defined">Pattern defined</string>
+    <string name="pattern_not_confirmed">Pattern not confirmed.</string>
+    <string name="pattern_defined">Pattern defined.</string>
     <string name="pattern_lock_options">Pattern lock options</string>
     <string name="size_of_pattern">Size of pattern</string>
     <string name="hide_trail">Hide trail</string>
@@ -105,23 +112,21 @@
     <string name="pin_lock_options">Pin lock options</string>
     <string name="number_of_dots">Number of dots</string>
     <string name="maximum_number_of_tries">Maximum number of tries</string>
-    <string name="pin_length_was_changed">Pin length was changed, set pin once again</string>
+    <string name="pin_length_was_changed">Pin length was changed. Please set up your pin.</string>
     <string name="confirm_pin">Confirm pin</string>
-    <string name="pin_not_confirmed">Pin not confirmed</string>
+    <string name="pin_not_confirmed">Pin not confirmed.</string>
     <string name="pin_defined">Pin defined.</string>
 
     <!-- preferences - security screen - password -->
-    <string name="set_new_password">Set new password</string>
+    <string name="set_new_password">Set new password.</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="password_not_confirmed">Password not confirmed</string>
+    <string name="password_not_confirmed">Password not confirmed.</string>
     <string name="password_defined">Password defined.</string>
 
     <!-- preferences - security screen - fingerprint -->
-    <string name="touch_sensor">Touch sensor</string>
-    <string name="access_granted">Access granted</string>
-    <string name="error_setting_up_fingerprint">Error setting up fingerprint</string>
-    <string name="fingerprint_hardware_not_found">Fingerprint hardware not found or not permitted</string>
-    <string name="fingerprints_not_found">Fingerprints not found. Enter password</string>
+    <string name="error_setting_up_fingerprint">Error setting up fingerprint.</string>
+    <string name="fingerprint_hardware_not_found">Fingerprint hardware not found or not permitted.</string>
+    <string name="fingerprints_not_found">Fingerprints not found. Please enter your password.</string>
     <string name="status_error">Error: %1$s</string>
 
     <!-- preferences - about screen -->
@@ -130,7 +135,7 @@
     <string name="copyright">Copyright © 1997–2016, Pantheon Inc</string>
     <string name="legal_information">Legal information</string>
     <string name="other_information">Other information</string>
-    <string name="third_parties_components">Third parties components</string>
+    <string name="third_parties_components">Third party components</string>
     <string name="odyssey_legal_information_summary"><![CDATA[
 Here should be the Odyssey legal information
             ]]> </string>
@@ -153,7 +158,6 @@ Here should be the Odyssey legal information
     </string-array>
     <string name="api_login" formatted="false" translatable="false">OdysseyMobileLogin(\"%s\",\"%s\");</string>
     <string name="api_view" formatted="false" translatable="false">OdysseyMobileUpdateView(\"%s\");</string>
-
 
 
 </resources>

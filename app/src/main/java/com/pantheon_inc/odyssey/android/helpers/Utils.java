@@ -133,7 +133,6 @@ public class Utils {
             for (byte b : bytes) {
                 buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
-            System.out.println(buffer.toString());
             return buffer.toString();
         } catch (Exception e) {
             e.printStackTrace();
