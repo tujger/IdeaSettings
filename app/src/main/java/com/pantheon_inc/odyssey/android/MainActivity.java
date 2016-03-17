@@ -50,7 +50,7 @@ import static com.pantheon_inc.odyssey.R.id;
 import static com.pantheon_inc.odyssey.R.layout;
 import static com.pantheon_inc.odyssey.R.string;
 
-//test of branch
+//next test of branch
 
 public class MainActivity extends AppCompatActivity {
     private static final int MENU_ADD_ACCOUNT = 100000;
