@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class VersionHelper {
-    private ArrayList<Integer> version = new ArrayList<>(Arrays.asList(new Integer[]{0, 0, 0, 0}));
+    private final ArrayList<Integer> version = new ArrayList<>(Arrays.asList(new Integer[]{0, 0, 0, 0}));
 
     public VersionHelper(String version) {
         if (version == null) version = "";

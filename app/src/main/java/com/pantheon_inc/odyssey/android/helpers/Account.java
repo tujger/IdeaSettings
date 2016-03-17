@@ -27,9 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
-    public static final String ACCOUNT_LAST_ID = "accountLastId";
+    private static final String ACCOUNT_LAST_ID = "accountLastId";
     public static final String ACCOUNT_CURRENT_ID = "accountCurrentId";
-    public static final String ACCOUNT_URL = "url";
+    private static final String ACCOUNT_URL = "url";
     private static final String ACCOUNT_TITLE = "title";
     private static final String ACCOUNT_USERNAME = "username";
     private static final String ACCOUNT_PASSWORD = "password";
@@ -38,12 +38,12 @@ public class Account {
     private static final String ACCOUNT_ERROR_CODE = "errorCode";
     private static final String ACCOUNT_SESSION_ID = "sessionId";
 
-    public static final int ERROR_NOERROR = 0;
-    public static final int ERROR_USERID_INVALID = 1;
-    public static final int ERROR_PASSWORD_INVALID = 2;
-    public static final int ERROR_OLD_VERSION = 3;
-    public static final int ERROR_NETWORK_NOT_ALLOWED = 4;
-    public static final int ERROR_ANOTHER_ERROR = 100;
+    private static final int ERROR_NOERROR = 0;
+    private static final int ERROR_USERID_INVALID = 1;
+    private static final int ERROR_PASSWORD_INVALID = 2;
+    private static final int ERROR_OLD_VERSION = 3;
+    private static final int ERROR_NETWORK_NOT_ALLOWED = 4;
+    private static final int ERROR_ANOTHER_ERROR = 100;
 
     private static final int REQUEST_CHECK_LOGIN = 0;
 
@@ -192,7 +192,6 @@ public class Account {
         this.errorState = sp.getBoolean(ACCOUNT_ERROR_STATE, false);
         this.sessionId = sp.getString(ACCOUNT_SESSION_ID, "");
         return true;
-
     }
 
     /**

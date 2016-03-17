@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="@dimen/pin_padding"
+            android:baselineAligned="false"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -249,7 +250,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:textSize="@dimen/pin_button_text_size"
-                />
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton2"
@@ -262,7 +263,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton3"
@@ -275,7 +277,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton4"
@@ -288,7 +291,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton5"
@@ -301,7 +305,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton6"
@@ -314,7 +319,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton7"
@@ -327,7 +333,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton8"
@@ -340,7 +347,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton9"
@@ -353,7 +361,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButtonStar"
@@ -366,7 +375,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButton0"
@@ -379,7 +389,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
 
             <Button
                 android:id="@+id/pinButtonBack"
@@ -392,7 +403,8 @@
                 android:textAlignment="center"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:textSize="@dimen/pin_button_text_size"/>
+                android:textSize="@dimen/pin_button_text_size"
+                tools:ignore="HardcodedText,UnusedAttribute"/>
         </GridLayout>
 
     </LinearLayout>
@@ -429,13 +441,12 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivFingerprint"
+            android:contentDescription="@null"
             android:src="@drawable/ic_fp_40px" />
-            />
 
         <TextView
             android:layout_width="wrap_content"

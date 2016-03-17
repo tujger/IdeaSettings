@@ -407,8 +407,8 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
     }
 
     private class PinView {
-        private PinViewDots dots = new PinViewDots();
-        private PinViewKeypad keypad = new PinViewKeypad();
+        private final PinViewDots dots = new PinViewDots();
+        private final PinViewKeypad keypad = new PinViewKeypad();
 
         public PinView setDots(LinearLayout layout) {
             this.dots.setLayout(layout);
@@ -432,7 +432,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             private LinearLayout layout;
             private int length, current;
             private boolean autoSubmit = false;
-            private ArrayList<RadioButton> dots = new ArrayList<>();
+            private final ArrayList<RadioButton> dots = new ArrayList<>();
 
             public PinViewDots() {
                 current = 0;
@@ -529,7 +529,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
 
         class PinViewKeypad {
             GridLayout layout;
-            private ArrayList<Button> buttons = new ArrayList<>();
+            private final ArrayList<Button> buttons = new ArrayList<>();
 
             public PinViewKeypad() {
             }
@@ -562,19 +562,19 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
                 buttons.add(11, b);
             }
 
-            View.OnClickListener onPinKeypadButtonListener = new View.OnClickListener() {
+            final View.OnClickListener onPinKeypadButtonListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dots.setNext((Integer) v.getTag());
                 }
             };
-            View.OnClickListener onPinKeypadButtonStarListener = new View.OnClickListener() {
+            final View.OnClickListener onPinKeypadButtonStarListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dots.resetState();
                 }
             };
-            View.OnClickListener onPinKeypadButtonBackListener = new View.OnClickListener() {
+            final View.OnClickListener onPinKeypadButtonBackListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dots.back();
@@ -1113,25 +1113,25 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         }
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
-       /* Digitus.init(this, getString(R.string.app_name), 69, this);
+       *//* Digitus.init(this, getString(R.string.app_name), 69, this);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Starts listening for a fingerprint
                 Digitus.get().startListening();
             }
-        });*/
-    }
+        });*//*
+    }*/
 
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
         // Calling this method automatically makes a call to stopListening() if necessary
 //        Digitus.deinit();
-    }
+    }*/
 
 
     @Override

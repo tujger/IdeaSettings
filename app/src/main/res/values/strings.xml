@@ -158,8 +158,8 @@ Here should be the Odyssey legal information
         <item>password</item>
         <item>fingerprint</item>
     </string-array>
-    <string name="api_login" formatted="false" translatable="false">OdysseyMobileLogin(\"%s\",\"%s\");</string>
-    <string name="api_view" formatted="false" translatable="false">OdysseyMobileUpdateView(\"%s\");</string>
+    <string name="api_login" formatted="false">OdysseyMobileLogin(\"%s\",\"%s\");</string>
+    <string name="api_view" formatted="false">OdysseyMobileUpdateView(\"%d\");</string>
 
 
 </resources>

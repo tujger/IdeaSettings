@@ -26,7 +26,7 @@ public class WebAppInterface {
     public static final String ACTION_COMMENT = "comment";
 
     private Handler uiHandler;
-    private Context mContext;
+    private final Context mContext;
     private int requestsCounter = 0;
     private boolean mainScreen = false;
 

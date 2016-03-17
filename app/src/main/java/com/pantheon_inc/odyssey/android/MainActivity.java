@@ -74,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
     private Handler uiHandler;
 
     private int regularDrawer = 0;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+//    private GoogleApiClient client;
+//    private static final String GOOGLE_API_CLIENT_TITLE = "Odyssey for Android";
+//    private static final String GOOGLE_API_CLIENT_SITE_URI = "http://www.pantheon-inc.com/";
+//    private static final String GOOGLE_API_CLIENT_APP_URI = "android-app://com.pantheon_inc.odyssey/http/host/path";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
-        .build();
+                .build();
         setRefreshDrawer();
 
         findViewById(id.btn_refresh).setOnClickListener(new View.OnClickListener() {
@@ -277,8 +286,9 @@ public class MainActivity extends AppCompatActivity {
 //        drawer.updateBadge("10", 1);
     }
 
+
     private class DrawerHandler implements Handler.Callback {
-        // this will handle the notification gets from worker thead
+        // this will handle the notification gets from worker thread
         @Override
         public boolean handleMessage(Message msg) {
             Bundle b = msg.getData();
@@ -387,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRegularDrawer() {
-        if(regularDrawer==2)return;
+        if (regularDrawer == 2) return;
         regularDrawer = 2;
         if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
         drawer.removeItems(MENU_REFRESH, MENU_APPS, MENU_MESSAGES, MENU_INBOX, MENU_INFO, MENU_PROFILE);
@@ -404,15 +414,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRefreshDrawer() {
-        if(regularDrawer==1)return;
+        if (regularDrawer == 1) return;
         regularDrawer = 1;
         if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
         drawer.removeItems(MENU_REFRESH, MENU_APPS, MENU_MESSAGES, MENU_INBOX, MENU_INFO, MENU_PROFILE);
         drawer.addItemAtPosition(new PrimaryDrawerItem().withName(string.refresh).withIcon(GoogleMaterial.Icon.gmd_refresh).withIdentifier(MENU_REFRESH), 1);
     }
 
-    public boolean isRegularDrawer() {
-        return regularDrawer==2;
+    private boolean isRegularDrawer() {
+        return regularDrawer == 2;
     }
 
     class SwitchToAccount {
@@ -432,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
             drawer.removeAllStickyFooterItems();
-            if(accounts.get(selectedAccount).hasTitle()){
+            if (accounts.get(selectedAccount).hasTitle()) {
                 drawer.addStickyFooterItem(new SecondaryDrawerItem().withName(accounts.get(selectedAccount).getUrl().toString()));
             }
 
@@ -493,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
                             sta.doLogin();
                             dialog.dismiss();
                         } else {
-                            mWarning.setText(R.string.password_too_short);
+                            mWarning.setText(string.password_too_short);
                             mWarning.setVisibility(View.VISIBLE);
                         }
                     }

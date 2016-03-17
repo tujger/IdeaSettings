@@ -133,7 +133,7 @@ public class AddAccountActivity extends AppCompatActivity {
     }
 
     private class OnEditTextLengthChanged implements TextWatcher {
-        private String re = "^https?:\\/\\/[a-z0-9\\.\\-]*?[a-z0-9]+(:\\d+)?$";
+        private final String re = "^https?://[a-z0-9\\.\\-]*?[a-z0-9]+(:\\d+)?$";
 
         public OnEditTextLengthChanged() {
             this.onTextChanged("", 0, 0, 0);
@@ -285,7 +285,7 @@ public class AddAccountActivity extends AppCompatActivity {
                         if (s.getUrl().toString().equals(url)
                                 && s.getUsername().equals(username)) {
                             focusView = mUrlView;
-                            mUrlView.setError(String.format(getString(R.string.account_already_exists), username, url));
+                            mUrlView.setError(getString(R.string.account_already_exists, username, url));
                             cancel = true;
                         }
                     }

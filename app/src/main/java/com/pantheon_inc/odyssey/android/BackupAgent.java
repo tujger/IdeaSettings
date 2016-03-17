@@ -3,11 +3,7 @@ package com.pantheon_inc.odyssey.android;
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.SharedPreferencesBackupHelper;
 
-/**
- * Created by eduardm on 024, 2/24/2016.
- */
 public class BackupAgent extends BackupAgentHelper {
-    static String fileName;
     static final String PREFS_BACKUP_KEY = "prefs";
     static final String PREFS_BACKUP_KEY_ACCOUNTS = "account_";
 
@@ -18,7 +14,7 @@ if(true)return;
         System.out.println("BACKUP DATA STARTS");
 //TODO
 
-        fileName = this.getPackageName() + "_preferences";
+        String fileName = this.getPackageName() + "_preferences";
 
         SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(this,
                 fileName);

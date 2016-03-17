@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.webkit.CookieManager;
-import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -26,12 +25,12 @@ import java.io.IOException;
  */
 public class OdysseyWebView extends WebView {
 
-    public static final String API_TYPE_LOGIN = "OdysseyMobileLogin.js";
-    public static final String API_TYPE_UPDATE = "OdysseyMobileUpdateView.js";
+    private static final String API_TYPE_LOGIN = "OdysseyMobileLogin.js";
+    private static final String API_TYPE_UPDATE = "OdysseyMobileUpdateView.js";
 
     private Handler uiHandler;
 
-    private Context context;
+    private final Context context;
     private Account account;
     private String api = "";
     private WebAppInterface wai;
@@ -314,10 +313,10 @@ public class OdysseyWebView extends WebView {
         this.apiType = apiType;
     }
 
-    @Override
+    /*@Override
     public WebBackForwardList saveState(Bundle outState) {
         return super.saveState(outState);
-    }
+    }*/
 
     public void resetRequestsCounter() {
         wai.resetRequestsCounter();
