@@ -21,8 +21,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     private static final int REQUEST_LOCK = 2;
 
     private View mContentView;
-    Handler mHandler = new Handler();
-    Runnable mStartMain;
+    private Handler mHandler = new Handler();
+    private Runnable mStartMain;
     private boolean showSplashScreen = false;
     private String securityMethod;
 

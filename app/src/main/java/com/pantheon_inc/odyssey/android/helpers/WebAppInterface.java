@@ -22,11 +22,13 @@ public class WebAppInterface {
     public static final int ACTION_LOGIN = 256;
     public static final int ACTION_SHOW_REFRESH = 512;
     public static final int ACTION_REFRESH = 1024;
+    public static final int ACTION_SHOW_REGULAR_DRAWER = 2048;
     public static final String ACTION_COMMENT = "comment";
 
     private Handler uiHandler;
     private Context mContext;
     private int requestsCounter = 0;
+    private boolean mainScreen = false;
 
     /**
      * Instantiate the interface and set the context
@@ -61,6 +63,16 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public void show() {
+        System.out.println("SEND MESSAGE TO UI FOR SHOW");
+        Message m = uiHandler.obtainMessage();
+        Bundle uB = m.getData();
+        uB.putInt(ACTION, ACTION_HIDE_ALL | ACTION_SHOW_WEBVIEW | ACTION_SHOW_REGULAR_DRAWER);
+        m.setData(uB);
+        uiHandler.sendMessage(m);
+    }
+
+    @JavascriptInterface
+    public void showLoginScreen() {
         System.out.println("SEND MESSAGE TO UI FOR SHOW");
         Message m = uiHandler.obtainMessage();
         Bundle uB = m.getData();
@@ -131,4 +143,15 @@ public class WebAppInterface {
         this.uiHandler = uiHandler;
     }
 
+    @JavascriptInterface
+    public boolean isMainScreen() {
+        boolean a = mainScreen;
+        mainScreen=false;
+        return a;
+    }
+
+    @JavascriptInterface
+    public void setMainScreen(boolean mainScreen) {
+        this.mainScreen = mainScreen;
+    }
 }

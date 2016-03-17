@@ -1,5 +1,6 @@
 package com.pantheon_inc.odyssey.android;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -134,6 +135,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
         }
     }
 
+    @SuppressLint("InflateParams")
     private void prepareAndShowDialog() {
         dialog = new AlertDialog.Builder(LockActivity.this).create();
         content = getLayoutInflater().inflate(R.layout.activity_lock, null);
@@ -240,7 +242,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             builder.setTitle(getString(R.string.pattern_lock_options));
 
             LayoutInflater inflater = LayoutInflater.from(LockActivity.this);
-            final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_lock_options, null);
+            @SuppressLint("InflateParams") final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_lock_options, null);
 
             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -372,7 +374,7 @@ public class LockActivity extends AppCompatActivity implements DigitusCallback {
             });
 
             LayoutInflater inflater = LayoutInflater.from(LockActivity.this);
-            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_lock_options, null);
+            @SuppressLint("InflateParams") LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_lock_options, null);
 
             layout.findViewById(R.id.layoutPinTries).setVisibility(View.VISIBLE);
             layout.findViewById(R.id.layoutPinLength).setVisibility(View.VISIBLE);

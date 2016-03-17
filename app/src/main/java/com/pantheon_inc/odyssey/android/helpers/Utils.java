@@ -45,10 +45,9 @@ public class Utils {
                 "Mozilla/5.0 (Windows; U; Windows NT 5.1; ru; rv:1.8.1.12) Gecko/20080201 Firefox");
 
         in = feedUrl.getInputStream();
-        BufferedReader reader;
-        reader = new BufferedReader(new InputStreamReader(in, urlCharset));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, urlCharset));
         while ((line = reader.readLine()) != null) {
-            sb.append(new String(line.getBytes("UTF-8")) + "\n");
+            sb.append(new String(line.getBytes("UTF-8"))).append("\n");
         }
         in.close();
 

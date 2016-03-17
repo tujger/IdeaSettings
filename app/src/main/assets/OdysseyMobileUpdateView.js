@@ -1,6 +1,7 @@
 window.console.log("INSTALL ODYSSEY MOBILE API");
 function OdysseyMobileUpdateView(newMode){
 
+	OdysseyMobileAPI.setMainScreen(true);
 	OdysseyMobileAPI.increaseRequestsCounter();
 
 	var getMode = function(newM){
@@ -49,8 +50,15 @@ function OdysseyMobileUpdateView(newMode){
             /*document.getElementById("dbAppButton").children[0].click();
             return;*/
         }
+		if(window.name.length>0){
+            console.log("WINDOW NAME "+window.name);
+            OdysseyMobileAPI.setMainScreen(false);
+            OdysseyMobileAPI.show();
+			return;
+		}
 
-		console.log("HIDE header");
+		console.log("HIDE header "+ window.name);
+		if(!header)return;
         header.style.display = "none";
 		console.log("HIDE central");
 	    central.style.display = "none";

@@ -1,5 +1,6 @@
 package com.pantheon_inc.odyssey.android;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -24,11 +24,10 @@ public class OptionsActivity extends AppCompatActivity {
 
     private EditText etTitle, etServer, etLogin, etPassword;
     private Account account;
-    private AlertDialog dialog;
     private View content;
-    private TextView mWarning;
+//    private TextView mWarning;
     private Button mOk;
-    private Button mNeutral;
+//    private Button mNeutral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +60,11 @@ public class OptionsActivity extends AppCompatActivity {
 //        mNeutral.setVisibility(View.GONE);
     }
 
+    @SuppressLint("InflateParams")
     private void prepareAndShowDialog() {
-        dialog = new AlertDialog.Builder(OptionsActivity.this).create();
+        AlertDialog dialog = new AlertDialog.Builder(OptionsActivity.this).create();
         content = getLayoutInflater().inflate(R.layout.activity_options, null);
-        mWarning = (TextView) content.findViewById(R.id.tvWarning);
+//        mWarning = (TextView) content.findViewById(R.id.tvWarning);
 
         OnCancelListener x = new OnCancelListener();
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), x);
@@ -77,7 +77,7 @@ public class OptionsActivity extends AppCompatActivity {
         dialog.setView(content);
         dialog.show();
         mOk = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        mNeutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+//        mNeutral = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
     }
 
     private class OnPasswordFieldLengthChanged implements TextWatcher {
@@ -131,7 +131,7 @@ public class OptionsActivity extends AppCompatActivity {
             deleteDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), new OnDeleteConfirm());
             deleteDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.cancel), new OnCancelListener());
 
-            deleteDialog.setIcon(new IconicsDrawable(OptionsActivity.this, GoogleMaterial.Icon.gmd_warning).actionBarSize());
+            deleteDialog.setIcon(new IconicsDrawable(OptionsActivity.this, GoogleMaterial.Icon.gmd_warning).actionBar());
             deleteDialog.setTitle(getString(R.string.delete_account_question));
             deleteDialog.setMessage(getString(R.string.delete_account_message));
             deleteDialog.show();
@@ -141,10 +141,10 @@ public class OptionsActivity extends AppCompatActivity {
     private class OnDeleteConfirm implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
+            Intent intent;
             if(account.delete()) {
                 Toast.makeText(getApplicationContext(), R.string.odyssey_account_deleted,Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent();
                 if(Account.getCount()>0) {
                     intent = new Intent(OptionsActivity.this, MainActivity.class);
                 }else{
@@ -155,7 +155,7 @@ public class OptionsActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(getApplicationContext(), R.string.error_deleting_odyssey_account,Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent();
+                intent = new Intent();
                 setResult(RESULT_CANCELED, intent);
                 finish();
             }

@@ -67,6 +67,8 @@
     <string name="error_adding_account">Error adding account.</string>
     <string name="identifier_not_defined">Identifier not defined.</string>
     <string name="network_error">Network error. Please try again later.</string>
+    <string name="not_an_odyssey_server">Not an Odyssey server.</string>
+    <string name="trying_to_access_via_unlicensed_ip">Trying to access Odyssey Server via an unlicensed IP or domain name.</string>
 
     <!-- account options -->
     <string name="account_options">Account options</string>

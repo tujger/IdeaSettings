@@ -3,14 +3,28 @@ package com.pantheon_inc.odyssey.android.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.text.TextUtils;
 
+import com.alirezaafkar.json.requester.Requester;
+import com.alirezaafkar.json.requester.interfaces.Methods;
+import com.alirezaafkar.json.requester.interfaces.Response;
+import com.alirezaafkar.json.requester.requesters.JsonObjectRequester;
+import com.alirezaafkar.json.requester.requesters.RequestBuilder;
+import com.android.volley.VolleyError;
 import com.pantheon_inc.odyssey.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Account {
     public static final String ACCOUNT_LAST_ID = "accountLastId";
@@ -31,6 +45,8 @@ public class Account {
     public static final int ERROR_NETWORK_NOT_ALLOWED = 4;
     public static final int ERROR_ANOTHER_ERROR = 100;
 
+    private static final int REQUEST_CHECK_LOGIN = 0;
+
     private static Context context;
 
     /*
@@ -42,7 +58,7 @@ public class Account {
     private String username;
     private String password = "";
     private boolean errorState;
-    private int errorCode = 0;
+//    private int errorCode = 0;
     private String sessionId = "";
     private boolean rememberPassword = true;
 
@@ -129,15 +145,19 @@ public class Account {
     public Account() {
     }
 
+/*
     public Account(String url, String username, String password) throws MalformedURLException {
         this(new URL(url), username, password);
     }
+*/
 
+/*
     public Account(URL url, String username, String password) {
         setUrl(url);
         setUsername(username);
         setPassword(password);
     }
+*/
 
     public boolean load() {
         return load(getId());
@@ -247,6 +267,115 @@ public class Account {
      */
     public boolean checkServer() throws IOException {
         return checkServer(getUrl().toString());
+    }
+
+    /**
+     * First stage of server checking. Tries to connect server and get the page. Checks content of this page for
+     * present of some substrings and throws an error if found. Else in success calls the second stage of checking.
+     */
+    public void tryServer(Response.ObjectResponse restRequester){
+        tryServer(getUrl().toString(),username,password,restRequester);
+    }
+
+    /**
+     * First stage of server checking. Tries to connect server and get the page. Checks content of this page for
+     * present of some substrings and throws an error if found. Else in success calls the second stage of checking.
+     * @param restRequester - callbacks for result
+     */
+    public static void tryServer(final String url, final String username, final String password, final Response.ObjectResponse restRequester) {
+        new AsyncTask<Void,Void,Boolean>() {
+            String message = "";
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                boolean res=true;
+                String content = "";
+                try {
+                    content = Utils.getUrl(url + "/odyssey/index.ody");
+                } catch (IOException e) {
+                    if(e.getClass().getSimpleName().equals("FileNotFoundException")){
+                        message = context.getString(R.string.not_an_odyssey_server);
+                    }else{
+                        message = e.getMessage();
+                    }
+                    e.printStackTrace();
+                    res=false;
+                }
+
+                if(res && !(content.indexOf("Odyssey")>0)){
+                    res=false;
+                    message = context.getString(R.string.not_an_odyssey_server);
+                }else if(content.indexOf("has been accessed via an unlicensed")>0){
+                    res=false;
+                    message = context.getString(R.string.trying_to_access_via_unlicensed_ip);
+                }else if(res) {
+                    try {
+                        Utils.getUrl(url + "/odyssey/rhaps.ody?action=getVersion");
+                    } catch (IOException e) {
+                        if (e.getClass().getSimpleName().equals("FileNotFoundException")) {
+                            message = context.getString(R.string.odyssey_server_too_old);
+                        } else {
+                            message = e.getMessage();
+                        }
+                        e.printStackTrace();
+                        res = false;
+                    }
+                }
+                return res;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean res) {
+                super.onPostExecute(res);
+                if(res){
+                    tryServerSecondStage(url,username,password,restRequester);
+                }else{
+                    restRequester.onFinishResponse(0, new VolleyError("ERR"), message);
+                }
+            }
+        }.execute();
+    }
+
+    public static void tryServerSecondStage(String url, String username, String password,Response.ObjectResponse restRequester){
+        //rest request init
+        Map<String, String> header = new HashMap<>();
+        header.put("charset", "utf-8");
+        Requester.Config config = new Requester.Config(context);
+        config.setHeader(header);
+        Requester.init(config);
+
+        String deviceId = Settings.Secure.getString(context.getContentResolver(),Settings.Secure.ANDROID_ID);
+        String deviceName = android.os.Build.MODEL;
+
+        JsonObjectRequester mRequester = new RequestBuilder(context)
+                .requestCode(REQUEST_CHECK_LOGIN)
+                .timeOut(15000)
+                .shouldCache(true)
+                .addToHeader("deviceid", deviceId)//FIXME remove
+                .addToHeader("platformtype", deviceName)//FIXME remove
+                .addToHeader("platformid", "android")//FIXME remove
+                .buildObjectRequester(restRequester);
+
+        String link = url + "/odyssey/rhaps.ody?";
+        ArrayList<String> pars = new ArrayList<>();
+        pars.add("action=getVersion");
+
+        try {
+            if (!TextUtils.isEmpty(username)) {
+                pars.add("action=checkUserid");
+                pars.add("deviceid=" + URLEncoder.encode(deviceId, "UTF-8"));
+                pars.add("platformtype=" + URLEncoder.encode(deviceName, "UTF-8"));
+                pars.add("platformid=android");
+                pars.add("userid=" + URLEncoder.encode(username, "UTF-8"));
+            }
+            if (!TextUtils.isEmpty(password)) {
+                pars.add("password=" + URLEncoder.encode(password, "UTF-8"));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        link += TextUtils.join("&", pars);
+
+        mRequester.request(Methods.GET, link);
     }
 
     public URL getUrl() {
@@ -360,7 +489,6 @@ public class Account {
     }
 
     public Account setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
         context.getSharedPreferences("account_" + id, Context.MODE_PRIVATE).edit().putInt(ACCOUNT_ERROR_CODE, errorCode).apply();
         return this;
     }

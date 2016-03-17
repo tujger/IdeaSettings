@@ -1,5 +1,12 @@
 function OdysseyMobileLogin(username,password){
 	console.log("INSTALL ODYSSEY MOBILE LOGIN API");
+
+	if(document.body.innerHTML.indexOf("This Odyssey Server has been accessed via an unlicensed IP or domain name")>0){
+	    console.log("ERROR Trying to access Odyssey Server via an unlicensed IP or domain name");
+		OdysseyMobileAPI.error("Trying to access Odyssey Server via an unlicensed IP or domain name.");
+		return;
+	}
+
     var isOdyssey = !!document.title.match("Odyssey");
     var hasError = document.getElementsByClassName("systemError") && document.getElementsByClassName("systemError")[0];
     var hasDocument = document.body.innerHTML.length > 10;
@@ -10,6 +17,8 @@ function OdysseyMobileLogin(username,password){
         if(hasLoginForm){
             if(!hasError){
                 try{
+                    window.name = "";
+
                     console.log("TRY LOGIN AS "+username+":"+password);
 	                var a = document.getElementById("OdysseyMobile");
 	                if(a)a.value = true;
@@ -23,7 +32,7 @@ function OdysseyMobileLogin(username,password){
 	                a.value = password;
 	                a = document.getElementById("loginBtn");
 	                console.log("CLICK loginBtn");
-	                OdysseyMobileAPI.show();
+	                OdysseyMobileAPI.showLoginScreen();
 	                a.onclick();
 	            }catch(e){
 	                console.log("ERROR "+e);

@@ -3,7 +3,6 @@ package com.pantheon_inc.odyssey.android.helpers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +22,7 @@ import com.pantheon_inc.odyssey.android.MainActivity;
 import java.io.IOException;
 
 /**
- * Created by eduardm on 018, 2/18/2016.
+ * Odyssey specific WebView with implemented Javascript API.
  */
 public class OdysseyWebView extends WebView {
 
@@ -70,9 +69,6 @@ public class OdysseyWebView extends WebView {
             webSettings.setSupportZoom(false);
             webSettings.setSupportMultipleWindows(false);
 
-            CookieManager cookieManager = CookieManager.getInstance();
-
-
             wai = new WebAppInterface(context);
 //                wai.setTaskCompleted(taskCompleted);
 
@@ -83,7 +79,7 @@ public class OdysseyWebView extends WebView {
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     System.out.println("SHOULD OVERRIDE " + url);
                     view.loadUrl(url);
-                    return true;
+                    return false;
                 }
 
                 @Override
@@ -186,7 +182,7 @@ public class OdysseyWebView extends WebView {
         new AsyncTask<Object, Boolean, Boolean>() {
             @Override
             protected Boolean doInBackground(Object... params) {
-                boolean error = false;
+                boolean error;
                 String errorText = "";
                 try {
                     error = !account.checkServer();
@@ -213,11 +209,7 @@ public class OdysseyWebView extends WebView {
                 if (o) {
                     CookieManager cookieManager = CookieManager.getInstance();
                     cookieManager.setAcceptCookie(true);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        cookieManager.removeAllCookies(null);
-                    } else {
-                        cookieManager.removeAllCookie();
-                    }
+                    cookieManager.removeAllCookie();
                     if (account.getSessionId().length() > 0) {
                         cookieManager.setCookie(account.getUrl().toString() + "/odyssey/", "JSESSIONID=" + account.getSessionId());
                     }
@@ -254,35 +246,48 @@ public class OdysseyWebView extends WebView {
         wai.hide();
         System.out.println("SWITCH TO APPS");
         setApi(context.getString(R.string.api_view, MainActivity.MENU_APPS));
-        loadUrl("javascript:cancelModalWindow();" + getApi());
+        loadRequestedMode(true);
+    }
+
+    private void loadRequestedMode(boolean cancelModalWindow){
+        if(wai.isMainScreen()) {
+            if(cancelModalWindow) {
+                loadUrl("javascript:cancelModalWindow();" + getApi());
+            }else{
+                loadUrl("javascript:" + getApi());
+            }
+        }else{
+            loadUrl("javascript:window.name=\"\";");
+            loadUrl(account.getUrl().toString());
+        }
     }
 
     public void switchToMessages() {
         wai.hide();
         System.out.println("SWITCH TO MESSAGES");
         setApi(context.getString(R.string.api_view, MainActivity.MENU_MESSAGES));
-        loadUrl("javascript:cancelModalWindow();" + getApi());
+        loadRequestedMode(true);
     }
 
     public void switchToInbox() {
         wai.hide();
         System.out.println("SWITCH TO INBOX");
         setApi(context.getString(R.string.api_view, MainActivity.MENU_INBOX));
-        loadUrl("javascript:cancelModalWindow();" + getApi());
+        loadRequestedMode(true);
     }
 
     public void switchToUserProfile() {
         wai.hide();
         System.out.println("USER PROFILE");
         setApi(context.getString(R.string.api_view, MainActivity.MENU_PROFILE));
-        loadUrl("javascript:" + getApi());
+        loadRequestedMode(false);
     }
 
     public void switchToInfo() {
         wai.hide();
         System.out.println("ACCOUNT INFO");
         setApi(context.getString(R.string.api_view, MainActivity.MENU_INFO));
-        loadUrl("javascript:" + getApi());
+        loadRequestedMode(false);
     }
 
     public Account getAccount() {
@@ -317,5 +322,5 @@ public class OdysseyWebView extends WebView {
     public void resetRequestsCounter() {
         wai.resetRequestsCounter();
     }
-};
+}
 

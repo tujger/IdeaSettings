@@ -34,6 +34,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.pantheon_inc.odyssey.R;
@@ -71,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<Integer, Account> accounts;
     private int selectedAccount;
     private OdysseyWebView wv;
-    private static Handler uiHandler;
+    private Handler uiHandler;
 
-    private boolean regularDrawer = false;
+    private int regularDrawer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,76 +86,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
 
-        uiHandler = new Handler() {
-            // this will handle the notification gets from worker thead
-            @Override
-            public void handleMessage(Message msg) {
-                Bundle b = msg.getData();
-
-                int res = b.getInt(WebAppInterface.ACTION);
-
-                if ((res & WebAppInterface.ACTION_HIDE_ALL) == WebAppInterface.ACTION_HIDE_ALL) {
-                    findViewById(id.progressBar).setVisibility(View.GONE);
-                    findViewById(id.layout_fatal_error).setVisibility(View.GONE);
-                    wv.setVisibility(View.GONE);
-                }
-
-                if ((res & WebAppInterface.ACTION_SHOW_PROGRESS) == WebAppInterface.ACTION_SHOW_PROGRESS) {
-                    findViewById(id.progressBar).setVisibility(View.VISIBLE);
-                } else if ((res & WebAppInterface.ACTION_HIDE_PROGRESS) == WebAppInterface.ACTION_HIDE_PROGRESS) {
-                    findViewById(id.progressBar).setVisibility(View.GONE);
-                }
-
-                if ((res & WebAppInterface.ACTION_SHOW_WEBVIEW) == WebAppInterface.ACTION_SHOW_WEBVIEW) {
-                    if (!isRegularDrawer()) {
-                        setRegularDrawer();
-                    }
-                    wv.setVisibility(View.VISIBLE);
-                } else if ((res & WebAppInterface.ACTION_HIDE_WEBVIEW) == WebAppInterface.ACTION_HIDE_WEBVIEW) {
-                    wv.setVisibility(View.GONE);
-                }
-
-                if ((res & WebAppInterface.ACTION_SHOW_ERROR) == WebAppInterface.ACTION_SHOW_ERROR) {
-                    ((TextView) findViewById(id.tv_fatal_error)).setText(b.getString(WebAppInterface.ACTION_COMMENT));
-                    findViewById(id.layout_fatal_error).setVisibility(View.VISIBLE);
-
-                    accounts.get(selectedAccount).setErrorCode(b.getString(WebAppInterface.ACTION_COMMENT));
-                    accounts.get(selectedAccount).setErrorState(true);
-                    updateActiveProfileIcon();
-                    headerResult.setActiveProfile(selectedAccount);
-
-                    if (isRegularDrawer()) {
-                        setRefreshDrawer();
-                    }
-                } else if ((res & WebAppInterface.ACTION_HIDE_ERROR) == WebAppInterface.ACTION_HIDE_ERROR) {
-                    findViewById(id.layout_fatal_error).setVisibility(View.GONE);
-
-                    accounts.get(selectedAccount).setErrorState(false);
-                    updateActiveProfileIcon();
-                    headerResult.setActiveProfile(selectedAccount);
-
-                    if (!isRegularDrawer()) {
-                        setRegularDrawer();
-                    }
-                }
-
-                if ((res & WebAppInterface.ACTION_LOGIN_SUCCESS) == WebAppInterface.ACTION_LOGIN_SUCCESS) {
-                    accounts.get(selectedAccount).setErrorState(false);
-                    updateActiveProfileIcon();
-                    wv.loginSuccess();
-                }
-                if ((res & WebAppInterface.ACTION_LOGIN) == WebAppInterface.ACTION_LOGIN) {
-                    wv.login();
-                }
-                if ((res & WebAppInterface.ACTION_REFRESH) == WebAppInterface.ACTION_REFRESH) {
-                    setRefreshDrawer();
-                    new SwitchToAccount(selectedAccount).go();
-                }
-                if ((res & WebAppInterface.ACTION_SHOW_REFRESH) == WebAppInterface.ACTION_SHOW_REFRESH) {
-                    setRefreshDrawer();
-                }
-            }
-        };
+        uiHandler = new Handler(new DrawerHandler());
 
         wv = (OdysseyWebView) findViewById(id.wv_odyssey);
         if (savedInstanceState != null) {
@@ -313,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
-                .build();
+        .build();
         setRefreshDrawer();
 
         findViewById(id.btn_refresh).setOnClickListener(new View.OnClickListener() {
@@ -346,13 +278,86 @@ public class MainActivity extends AppCompatActivity {
 //        drawer.updateBadge("10", 1);
     }
 
+    private class DrawerHandler implements Handler.Callback {
+        // this will handle the notification gets from worker thead
+        @Override
+        public boolean handleMessage(Message msg) {
+            Bundle b = msg.getData();
+
+            int res = b.getInt(WebAppInterface.ACTION);
+
+            if ((res & WebAppInterface.ACTION_HIDE_ALL) == WebAppInterface.ACTION_HIDE_ALL) {
+                findViewById(id.progressBar).setVisibility(View.GONE);
+                findViewById(id.layout_fatal_error).setVisibility(View.GONE);
+                wv.setVisibility(View.GONE);
+            }
+
+            if ((res & WebAppInterface.ACTION_SHOW_PROGRESS) == WebAppInterface.ACTION_SHOW_PROGRESS) {
+                findViewById(id.progressBar).setVisibility(View.VISIBLE);
+            } else if ((res & WebAppInterface.ACTION_HIDE_PROGRESS) == WebAppInterface.ACTION_HIDE_PROGRESS) {
+                findViewById(id.progressBar).setVisibility(View.GONE);
+            }
+
+            if ((res & WebAppInterface.ACTION_SHOW_WEBVIEW) == WebAppInterface.ACTION_SHOW_WEBVIEW) {
+                wv.setVisibility(View.VISIBLE);
+            } else if ((res & WebAppInterface.ACTION_HIDE_WEBVIEW) == WebAppInterface.ACTION_HIDE_WEBVIEW) {
+                wv.setVisibility(View.GONE);
+            }
+
+            if ((res & WebAppInterface.ACTION_SHOW_REGULAR_DRAWER) == WebAppInterface.ACTION_SHOW_REGULAR_DRAWER) {
+                if (!isRegularDrawer()) {
+                    setRegularDrawer();
+                }
+            }
+
+            if ((res & WebAppInterface.ACTION_SHOW_ERROR) == WebAppInterface.ACTION_SHOW_ERROR) {
+                ((TextView) findViewById(id.tv_fatal_error)).setText(b.getString(WebAppInterface.ACTION_COMMENT));
+                findViewById(id.layout_fatal_error).setVisibility(View.VISIBLE);
+
+                accounts.get(selectedAccount).setErrorCode(b.getString(WebAppInterface.ACTION_COMMENT));
+                accounts.get(selectedAccount).setErrorState(true);
+                updateActiveProfileIcon();
+                headerResult.setActiveProfile(selectedAccount);
+
+                setRefreshDrawer();
+            } else if ((res & WebAppInterface.ACTION_HIDE_ERROR) == WebAppInterface.ACTION_HIDE_ERROR) {
+                findViewById(id.layout_fatal_error).setVisibility(View.GONE);
+
+                accounts.get(selectedAccount).setErrorState(false);
+                updateActiveProfileIcon();
+                headerResult.setActiveProfile(selectedAccount);
+
+                if (!isRegularDrawer()) {
+                    setRegularDrawer();
+                }
+            }
+
+            if ((res & WebAppInterface.ACTION_LOGIN_SUCCESS) == WebAppInterface.ACTION_LOGIN_SUCCESS) {
+                accounts.get(selectedAccount).setErrorState(false);
+                updateActiveProfileIcon();
+                wv.loginSuccess();
+            }
+            if ((res & WebAppInterface.ACTION_LOGIN) == WebAppInterface.ACTION_LOGIN) {
+                wv.login();
+            }
+            if ((res & WebAppInterface.ACTION_REFRESH) == WebAppInterface.ACTION_REFRESH) {
+                setRefreshDrawer();
+                new SwitchToAccount(selectedAccount).go();
+            }
+            if ((res & WebAppInterface.ACTION_SHOW_REFRESH) == WebAppInterface.ACTION_SHOW_REFRESH) {
+                setRefreshDrawer();
+            }
+            return true;
+        }
+    }
+
     private Drawable getRelatedIcon(Account account) {
         String str;
         if (account.hasTitle()) str = account.getTitle();
         else str = account.getUsername();
 
         if (account.isErrorState()) {
-            return new IconicsDrawable(this, GoogleMaterial.Icon.gmd_warning).actionBarSize().paddingDp(3).colorRes(R.color.material_red_500);
+            return new IconicsDrawable(this, GoogleMaterial.Icon.gmd_warning).actionBar().paddingDp(3).colorRes(R.color.material_red_500);
         }
         return TextDrawable.builder()
                 .beginConfig()
@@ -383,7 +388,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRegularDrawer() {
-        regularDrawer = true;
+        if(regularDrawer==2)return;
+        regularDrawer = 2;
         if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
         drawer.removeItems(MENU_REFRESH, MENU_APPS, MENU_MESSAGES, MENU_INBOX, MENU_INFO, MENU_PROFILE);
         drawer.addItemsAtPosition(1,
@@ -399,14 +405,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRefreshDrawer() {
-        regularDrawer = false;
+        if(regularDrawer==1)return;
+        regularDrawer = 1;
         if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
         drawer.removeItems(MENU_REFRESH, MENU_APPS, MENU_MESSAGES, MENU_INBOX, MENU_INFO, MENU_PROFILE);
         drawer.addItemAtPosition(new PrimaryDrawerItem().withName(string.refresh).withIcon(GoogleMaterial.Icon.gmd_refresh).withIdentifier(MENU_REFRESH), 1);
     }
 
     public boolean isRegularDrawer() {
-        return regularDrawer;
+        return regularDrawer==2;
     }
 
     class SwitchToAccount {
@@ -423,6 +430,12 @@ public class MainActivity extends AppCompatActivity {
 
         public void go() {
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(Account.ACCOUNT_CURRENT_ID, id).apply();
+
+            if (drawer.switchedDrawerContent()) drawer.resetDrawerContent();
+            drawer.removeAllStickyFooterItems();
+            if(accounts.get(selectedAccount).hasTitle()){
+                drawer.addStickyFooterItem(new SecondaryDrawerItem().withName(accounts.get(selectedAccount).getUrl().toString()));
+            }
 
             wv.resetRequestsCounter();
 

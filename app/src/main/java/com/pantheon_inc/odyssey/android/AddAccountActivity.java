@@ -1,13 +1,11 @@
 package com.pantheon_inc.odyssey.android;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,25 +22,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alirezaafkar.json.requester.Requester;
-import com.alirezaafkar.json.requester.interfaces.Methods;
 import com.alirezaafkar.json.requester.interfaces.Response;
-import com.alirezaafkar.json.requester.requesters.JsonObjectRequester;
-import com.alirezaafkar.json.requester.requesters.RequestBuilder;
 import com.android.volley.VolleyError;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.pantheon_inc.odyssey.R;
 import com.pantheon_inc.odyssey.android.helpers.Account;
-import com.pantheon_inc.odyssey.android.helpers.ServerVersion;
+import com.pantheon_inc.odyssey.android.helpers.VersionHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,22 +50,18 @@ Sender ID
 
 public class AddAccountActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CHECK_LOGIN = 0;
-
     // UI references.
-    private JsonObjectRequester mRequester;
     private EditText mUrlView, mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private AlertDialog dialog;
-    private View content;
     private TextView mWarning;
     private Button mOk;
     private String token;
 
     // GCM Sender_id
-    private String SENDER_ID = "351458721539";
+    private static final String SENDER_ID = "351458721539";
+    private static final int MIN_SERVER_VERSION = 2164;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +78,8 @@ public class AddAccountActivity extends AppCompatActivity {
     }
 
     private void prepareAndShowDialog() {
-        dialog = new AlertDialog.Builder(AddAccountActivity.this).create();
-        content = getLayoutInflater().inflate(R.layout.activity_options, null);
+        AlertDialog dialog = new AlertDialog.Builder(AddAccountActivity.this).create();
+        @SuppressLint("InflateParams") View content = getLayoutInflater().inflate(R.layout.activity_options, null);
         mWarning = (TextView) content.findViewById(R.id.tvWarning);
 
         OnClickHolder x = new OnClickHolder();
@@ -103,6 +91,7 @@ public class AddAccountActivity extends AppCompatActivity {
 
         dialog.setView(content);
         dialog.show();
+
         mOk = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         mWarning.setVisibility(View.GONE);
 
@@ -144,7 +133,7 @@ public class AddAccountActivity extends AppCompatActivity {
     }
 
     private class OnEditTextLengthChanged implements TextWatcher {
-        private String re = "^https?:\\/\\/\\S+(\\.[\\w]{2,})?(:\\d+)?$";
+        private String re = "^https?:\\/\\/[a-z0-9\\.\\-]*?[a-z0-9]+(:\\d+)?$";
 
         public OnEditTextLengthChanged() {
             this.onTextChanged("", 0, 0, 0);
@@ -313,41 +302,7 @@ public class AddAccountActivity extends AppCompatActivity {
                 mLoginFormView.setVisibility(View.INVISIBLE);
                 mOk.setEnabled(false);
 
-                String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                        Settings.Secure.ANDROID_ID);
-                String deviceName = android.os.Build.MODEL;
-
-                mRequester = new RequestBuilder(getApplicationContext())
-                        .requestCode(REQUEST_CHECK_LOGIN)
-                        .timeOut(15000)
-                        .showError(true) //Show error with toast on Network or Server error
-                        .shouldCache(true)
-                        .addToHeader("deviceid", deviceId)//FIXME remove
-                        .addToHeader("platformtype", deviceName)//FIXME remove
-                        .addToHeader("platformid", "android")//FIXME remove
-                        .buildObjectRequester(new RestRequester());
-
-                String link = url + "/odyssey/rhaps.ody?";
-                ArrayList<String> pars = new ArrayList<>();
-                pars.add("action=getVersion");
-
-                try {
-                    if (!TextUtils.isEmpty(username)) {
-                        pars.add("action=checkUserid");
-                        pars.add("deviceid=" + URLEncoder.encode(deviceId, "UTF-8"));
-                        pars.add("platformtype=" + URLEncoder.encode(deviceName, "UTF-8"));
-                        pars.add("platformid=android");
-                        pars.add("userid=" + URLEncoder.encode(username, "UTF-8"));
-                    }
-                    if (!TextUtils.isEmpty(password)) {
-                        pars.add("password=" + URLEncoder.encode(password, "UTF-8"));
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                link += TextUtils.join("&", pars);
-
-                mRequester.request(Methods.GET, link);
+                Account.tryServer(url,username,password,new RestRequester());
             }
         }
     }
@@ -368,21 +323,11 @@ public class AddAccountActivity extends AppCompatActivity {
             }
 
             try {
-                ServerVersion version = new ServerVersion(jsonObject.has("Version") ? jsonObject.getString("Version") : "");
+                VersionHelper serverVersion = new VersionHelper(jsonObject.has("Version") ? jsonObject.getString("Version") : "");
 
-                PackageInfo a = null;
-                try {
-                    a = getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
-                    String clientVersion = a.versionName + "." + a.versionCode;
-                    if (!version.isEarlierThanMinor(clientVersion)) {
-                        mUrlView.requestFocus();
-                        mUrlView.setError(getString(R.string.odyssey_server_too_old));
-                        return;
-                    }
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                if (serverVersion.getRevision()<MIN_SERVER_VERSION) {
                     mUrlView.requestFocus();
-                    mUrlView.setError(getString(R.string.your_device_is_incompatible_with_odyssey_server));
+                    mUrlView.setError(getString(R.string.odyssey_server_too_old));
                     return;
                 }
 
@@ -410,6 +355,9 @@ public class AddAccountActivity extends AppCompatActivity {
                             protected void onPreExecute() {
                                 super.onPreExecute();
                                 mOk.setEnabled(false);
+                                mUrlView.setEnabled(false);
+                                mUsernameView.setEnabled(false);
+                                mPasswordView.setEnabled(false);
                             }
 
                             @Override
@@ -439,6 +387,10 @@ public class AddAccountActivity extends AppCompatActivity {
                             protected void onPostExecute(Void a) {
                                 super.onPostExecute(a);
                                 mOk.setEnabled(true);
+                                mUrlView.setEnabled(true);
+                                mUrlView.setError(null);
+                                mUsernameView.setEnabled(true);
+                                mPasswordView.setEnabled(true);
                                 mWarning.setVisibility(View.GONE);
                             }
                         }.execute(timeout);
@@ -487,10 +439,13 @@ public class AddAccountActivity extends AppCompatActivity {
 
         @Override
         public void onFinishResponse(int requestCode, @Nullable VolleyError volleyError, String message) {
-            System.out.println("ONFINISHRESPONCE " + requestCode + ":" + message + ":" + volleyError);
+            System.out.println("ONFINISHRESPONCE " + requestCode + ":" + message);
             mProgressView.setVisibility(View.GONE);
             mLoginFormView.setVisibility(View.VISIBLE);
-            mUrlView.setError(message);
+            String code="";
+            if(volleyError!=null && volleyError.networkResponse!=null)
+                code = " "+volleyError.networkResponse.statusCode;
+            mUrlView.setError(message+code);
             mUrlView.requestFocus();
             mOk.setEnabled(true);
         }
@@ -504,14 +459,6 @@ public class AddAccountActivity extends AppCompatActivity {
         @Override
         public void onRequestFinish(int requestCode) {
             System.out.println("ONREQUESTFINISH " + requestCode);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (isFinishing() && mRequester != null) {
-            mRequester.setCallback(null);
         }
     }
 }
