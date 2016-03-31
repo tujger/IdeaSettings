@@ -454,6 +454,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             AppBarLayout appbar;
 
+            if(dialog==null)return;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 LinearLayout root = (LinearLayout) dialog.findViewById(android.R.id.list).getParent();
                 appbar = (AppBarLayout) LayoutInflater.from(getActivity()).inflate(R.layout.settings_page, root, false);
