@@ -12,7 +12,7 @@
             android:title="@string/odyssey_for_android">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://play.google.com/store/apps/details?id=ru.wtg.exgalleries"/>
+                android:data="https://play.google.com/store/apps/details?id=com.pantheon_inc.odyssey"/>
         </PreferenceScreen>
 
         <PreferenceScreen

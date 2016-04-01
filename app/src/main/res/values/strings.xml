@@ -73,7 +73,7 @@
     <!-- account options -->
     <string name="account_options">Account options</string>
     <string name="title">Title</string>
-    <string name="enter_odyssey_password">Enter Odyssey password.</string>
+    <string name="enter_odyssey_password">Enter Odyssey password</string>
     <string name="remember_password">Remember password</string>
     <string name="password_required">Password required.</string>
     <string name="delete">Delete</string>
@@ -138,10 +138,6 @@
     <string name="legal_information">Legal information</string>
     <string name="other_information">Other information</string>
     <string name="third_parties_components">Third party components</string>
-    <string name="odyssey_legal_information_summary"><![CDATA[
-Here should be the Odyssey legal information
-            ]]> </string>
-
 
     <!-- do not change below -->
     <string-array name="security_method_titles">
