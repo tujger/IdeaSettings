@@ -1,2 +1,0 @@
-# Odyssey
-Odyssey for Android
