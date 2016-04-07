@@ -1,8 +1,0 @@
-<application>
-  <component name="FileTypeManager" version="16">
-    <extensionMap>
-      <mapping pattern=".classpath" type="PLAIN_TEXT" />
-      <mapping pattern=".project" type="PLAIN_TEXT" />
-    </extensionMap>
-  </component>
-</application>
