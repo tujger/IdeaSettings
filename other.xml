@@ -63,6 +63,10 @@
       <option name="ENABLED" value="true" />
     </filter>
   </component>
+  <component name="DependencyUISettings">
+    <option name="UI_FLATTEN_PACKAGES" value="false" />
+    <option name="UI_SHOW_MODULES" value="false" />
+  </component>
   <component name="RefactoringSettings">
     <option name="MOVE_PREVIEW_USAGES" value="false" />
   </component>
