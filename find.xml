@@ -1,9 +1,9 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Project 'Where Am I Now'" />
-    <option name="defaultScopeName" value="Project 'Where Am I Now'" />
+    <option name="customScope" value="Project 'WhereAmINow'" />
+    <option name="defaultScopeName" value="Project 'WhereAmINow'" />
     <option name="localRegularExpressions" value="true" />
     <option name="LOCAL_REGULAR_EXPRESSIONS" value="true" />
-    <option name="SEARCH_SCOPE" value="Project 'Where Am I Now'" />
+    <option name="SEARCH_SCOPE" value="Project 'WhereAmINow'" />
   </component>
 </application>
