@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
+      <mapping ext="backup" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
