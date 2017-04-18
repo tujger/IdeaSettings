@@ -11,6 +11,10 @@
   <action id="MoveLineUp">
     <keyboard-shortcut first-keystroke="meta up" />
   </action>
+  <action id="QuickEvaluateExpression">
+    <mouse-shortcut keystroke="alt button1" />
+    <keyboard-shortcut first-keystroke="shift ctrl i" />
+  </action>
   <action id="SwitchApply">
     <keyboard-shortcut first-keystroke="ctrl alt enter" />
   </action>
