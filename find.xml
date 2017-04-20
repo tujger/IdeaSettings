@@ -2,6 +2,8 @@
   <component name="FindSettings">
     <option name="customScope" value="Project 'WhereAmINow'" />
     <option name="defaultScopeName" value="Project 'WhereAmINow'" />
+    <option name="localCaseSensitive" value="true" />
+    <option name="LOCAL_CASE_SENSITIVE_SEARCH" value="true" />
     <option name="SEARCH_SCOPE" value="Project 'WhereAmINow'" />
   </component>
 </application>
