@@ -15,6 +15,9 @@
     <mouse-shortcut keystroke="alt button1" />
     <keyboard-shortcut first-keystroke="shift ctrl i" />
   </action>
+  <action id="Replace">
+    <keyboard-shortcut first-keystroke="meta h" />
+  </action>
   <action id="SwitchApply">
     <keyboard-shortcut first-keystroke="ctrl alt enter" />
   </action>
