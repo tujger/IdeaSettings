@@ -1,0 +1,9 @@
+<keymap version="1" name="Eclipse copy" parent="Eclipse">
+  <action id="Find">
+    <keyboard-shortcut first-keystroke="ctrl f" />
+  </action>
+  <action id="FindInPath" />
+  <action id="Replace">
+    <keyboard-shortcut first-keystroke="ctrl h" />
+  </action>
+</keymap>
