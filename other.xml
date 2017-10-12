@@ -1,0 +1,19 @@
+<application>
+  <component name="RecentTaskRepositories">
+    <YouTrack shared="false" url="http://waytous.myjetbrains.com/youtrack">
+      <commitMessageFormat>{id} {summary}</commitMessageFormat>
+      <option name="defaultSearch" value="#issues sort by: State, Priority, Updated, Subsystem" />
+      <password>dff8dfc3dfc9dfc2dfcbdfd8dfcedf99df9adf9adf9cdf9b</password>
+      <option name="loginAnonymously" value="false" />
+      <option name="preferredCloseTaskState" />
+      <option name="preferredOpenTaskState" />
+      <option name="shouldFormatCommitMessage" value="false" />
+      <option name="useHttpAuthentication" value="false" />
+      <option name="useProxy" value="false" />
+      <username>tujger@gmail.com</username>
+    </YouTrack>
+  </component>
+  <component name="SvgViewer.Settings">
+    <option name="PLUGIN_ENABLED" value="true" />
+  </component>
+</application>

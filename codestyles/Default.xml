@@ -1,0 +1,8 @@
+<code_scheme name="Default">
+  <JSCodeStyleSettings>
+    <option name="REFORMAT_C_STYLE_COMMENTS" value="false" />
+  </JSCodeStyleSettings>
+  <codeStyleSettings language="JavaScript">
+    <option name="LINE_COMMENT_ADD_SPACE" value="false" />
+  </codeStyleSettings>
+</code_scheme>
