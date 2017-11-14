@@ -34,8 +34,16 @@
           <option name="url" value="https://github.com/Edeqa/Waytous.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Edeqa/Helpers.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/Edeqa/EventBus.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\eduardm\AndroidStudioProjects" />
+    <option name="cloneParentDir" value="C:\Users\eduardm\AndroidStudioProjects\Waytous" />
   </component>
 </application>
