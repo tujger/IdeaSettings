@@ -1,9 +1,8 @@
 <application>
   <component name="LanguageInjectionConfiguration">
-    <option name="INSTRUMENTATION" value="ASSERT" />
-    <option name="LANGUAGE_ANNOTATION" value="org.intellij.lang.annotations.Language" />
-    <option name="PATTERN_ANNOTATION" value="org.intellij.lang.annotations.Pattern" />
-    <option name="SUBST_ANNOTATION" value="org.intellij.lang.annotations.Subst" />
-    <option name="RESOLVE_REFERENCES" value="true" />
+    <injection language="TEXT" injector-id="java">
+      <display-name>ViewMatchers.withContentDescription (android.support.test.espresso.matcher)</display-name>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("withContentDescription").withParameters("java.lang.String").definedInClass("android.support.test.espresso.matcher.ViewMatchers"))]]></place>
+    </injection>
   </component>
 </application>
