@@ -1,0 +1,12 @@
+<application>
+  <component name="RemoteServers">
+    <remote-server name="Docker" type="docker">
+      <configuration>
+        <option name="apiUrl" value="tcp://localhost:2375" />
+      </configuration>
+    </remote-server>
+    <remote-server name="Google App Engine" type="gcp-app-engine">
+      <configuration />
+    </remote-server>
+  </component>
+</application>
