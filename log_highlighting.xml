@@ -9,6 +9,7 @@
         <LogHighlightingPattern pattern="\/server" action="HIGHLIGHT_LINE" fg="-16748490" stripe="true" />
         <LogHighlightingPattern pattern="\/main" action="HIGHLIGHT_LINE" fg="-16752272" stripe="true" />
         <LogHighlightingPattern pattern="\/dpf" action="HIGHLIGHT_LINE" fg="-10158007" stripe="true" />
+        <LogHighlightingPattern pattern="Exception" action="HIGHLIGHT_LINE" fg="-6750208" stripe="true" />
       </list>
     </Patterns>
     <parsing>
