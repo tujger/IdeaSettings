@@ -4,7 +4,9 @@
     <option name="UI_SHOW_MODULES" value="false" />
   </component>
   <component name="UISettings">
+    <option name="HIDE_KNOWN_EXTENSION_IN_TABS" value="true" />
     <option name="HIDE_TOOL_STRIPES" value="false" />
+    <option name="MARK_MODIFIED_TABS_WITH_ASTERISK" value="true" />
     <option name="SHOW_MAIN_TOOLBAR" value="true" />
   </component>
 </application>
