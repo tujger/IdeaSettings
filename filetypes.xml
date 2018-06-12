@@ -15,6 +15,7 @@
       <mapping ext="py" type="PLAIN_TEXT" />
       <mapping ext="cert" type="PLAIN_TEXT" />
       <mapping ext="jks" type="PLAIN_TEXT" />
+      <mapping ext="62" type="PLAIN_TEXT" />
       <mapping ext="61" type="PLAIN_TEXT" />
       <mapping ext="51" type="PLAIN_TEXT" />
       <mapping ext="pem" type="PLAIN_TEXT" />
