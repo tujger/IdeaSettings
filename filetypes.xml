@@ -4,6 +4,7 @@
       <mapping ext="mp3" type="Native" />
       <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
       <mapping pattern="tkLYaCUzGaifa991ZMRZvXSg5QOU6JP8jb7P62YRAzI" type="PLAIN_TEXT" />
+      <mapping pattern="abc" type="PLAIN_TEXT" />
       <mapping pattern="iptables_config" type="PLAIN_TEXT" />
       <mapping pattern="LICENSE" type="PLAIN_TEXT" />
       <mapping pattern="temp" type="PLAIN_TEXT" />
