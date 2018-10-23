@@ -1,6 +1,7 @@
 <application>
-  <component name="GithubSettings">
-    <option name="LOGIN" value="wtiger@mail.ru" />
-    <option name="AUTH_TYPE" value="BASIC" />
+  <component name="GithubAccounts">
+    <account id="296a89bd-3b11-4d80-8d3b-45e2c369da53" name="wtiger@mail.ru">
+      <server host="github.com" />
+    </account>
   </component>
 </application>
