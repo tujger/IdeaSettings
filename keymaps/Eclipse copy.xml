@@ -19,12 +19,6 @@
   </action>
   <action id="MoveStatementDown" />
   <action id="MoveStatementUp" />
-  <action id="QuickEvaluateExpression">
-    <keyboard-shortcut first-keystroke="ctrl alt f8" />
-    <mouse-shortcut keystroke="alt button1" />
-    <keyboard-shortcut first-keystroke="shift ctrl i" />
-  </action>
-  <action id="QuickImplementations" />
   <action id="Replace">
     <keyboard-shortcut first-keystroke="ctrl h" />
   </action>
@@ -46,5 +40,4 @@
     <keyboard-shortcut first-keystroke="shift alt up" />
   </action>
   <action id="XDebugger.CopyWatch" />
-  <action id="XDebugger.Inspect" />
 </keymap>
