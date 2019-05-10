@@ -1,0 +1,9 @@
+<application>
+  <component name="org.jetbrains.tfsIntegration.core.configuration.TFSConfigurationManager">
+    <option name="config">
+      <server uri="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/">
+        <configuration />
+      </server>
+    </option>
+  </component>
+</application>
