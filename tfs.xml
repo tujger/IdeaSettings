@@ -1,8 +1,28 @@
 <application>
   <component name="org.jetbrains.tfsIntegration.core.configuration.TFSConfigurationManager">
     <option name="config">
+      <server uri="http://epics.pantheon-se.com:8080/">
+        <configuration>
+          <credentials>
+            <credentials>
+              <domain>pantheon-se</domain>
+              <username>eduardm</username>
+            </credentials>
+          </credentials>
+        </configuration>
+      </server>
       <server uri="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/">
         <configuration />
+      </server>
+      <server uri="http://piusvs065.pantheon-se.com:8080/tfs/pantheoncollection/">
+        <configuration>
+          <credentials>
+            <credentials>
+              <domain>pantheon-se</domain>
+              <username>eduardm</username>
+            </credentials>
+          </credentials>
+        </configuration>
       </server>
     </option>
   </component>
