@@ -1,7 +1,6 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
-      <mapping ext="klib" type="ARCHIVE" />
       <mapping ext="mp3" type="Native" />
       <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
       <mapping pattern="iptables_config" type="PLAIN_TEXT" />
@@ -13,17 +12,18 @@
       <mapping ext="csr" type="PLAIN_TEXT" />
       <mapping ext="crt" type="PLAIN_TEXT" />
       <mapping ext="backup" type="PLAIN_TEXT" />
+      <mapping ext="61" type="PLAIN_TEXT" />
       <mapping ext="cnf" type="PLAIN_TEXT" />
       <mapping ext="ext" type="PLAIN_TEXT" />
       <mapping ext="jks" type="PLAIN_TEXT" />
+      <mapping ext="key" type="PLAIN_TEXT" />
+      <mapping ext="tables" type="PLAIN_TEXT" />
       <mapping ext="cert" type="PLAIN_TEXT" />
       <mapping ext="64" type="PLAIN_TEXT" />
       <mapping ext="63" type="PLAIN_TEXT" />
       <mapping ext="62" type="PLAIN_TEXT" />
-      <mapping ext="61" type="PLAIN_TEXT" />
       <mapping ext="51" type="PLAIN_TEXT" />
       <mapping ext="pem" type="PLAIN_TEXT" />
-      <mapping ext="key" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>

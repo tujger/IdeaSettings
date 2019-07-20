@@ -1,0 +1,17 @@
+<application>
+  <component name="org.jetbrains.tfsIntegration.core.configuration.TFSConfigurationManager">
+    <option name="config">
+      <server uri="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/">
+        <configuration>
+          <credentials>
+            <credentials type="NtlmNative">
+              <domain>PANTHEON-SE</domain>
+              <password />
+              <username>eduardm</username>
+            </credentials>
+          </credentials>
+        </configuration>
+      </server>
+    </option>
+  </component>
+</application>
