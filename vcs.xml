@@ -63,22 +63,34 @@
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="http://github.com/Edeqa/Waytous.git" />
-          <option name="userName" value="tujger.dev@gmail.com" />
+          <option name="url" value="https://github.com/tujger/drone-delivery-challenge.git" />
+          <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="http://github.com/Edeqa/EventBus.git" />
-          <option name="userName" value="tujger" />
+          <option name="url" value="https://github.com/eclipsesource/jsonforms.git" />
+          <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="http://github.com/Edeqa/Helpers.git" />
-          <option name="userName" value="tujger" />
+          <option name="url" value="https://github.com/eclipsesource/jsonforms-react-seed.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/NVlabs/SPADE.git" />
+          <option name="userName" value="" />
         </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\eduardm\AndroidStudioProjects" />
+    <option name="cloneParentDir" value="$USER_HOME$/Documents/IdeaProjects" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="SHOW_CHANGES_FROM_PARENTS" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="1" />
+        <option value="2" />
+        <option value="3" />
+      </list>
+    </option>
   </component>
 </application>
