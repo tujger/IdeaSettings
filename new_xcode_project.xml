@@ -1,0 +1,8 @@
+<application>
+  <component name="XcodeNewProjectMetadata">
+    <string key="bundleIdentifierPrefix" value="com.pantheon-inc" />
+    <boolean key="hasUnitTests" value="false" />
+    <string key="organizationName" value="Pantheon Inc" />
+    <string key="languageChoice" value="Swift" />
+  </component>
+</application>
