@@ -94,6 +94,10 @@
           <option name="url" value="http://github.com/tujger/Odyssey-Core.git" />
           <option name="userName" value="tujger" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://github.com/tujger/70-480.git" />
+          <option name="userName" value="tujger" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\eduardm\AndroidStudioProjects" />
