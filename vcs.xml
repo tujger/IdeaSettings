@@ -94,6 +94,18 @@
           <option name="url" value="http://github.com/tujger/Odyssey-Core.git" />
           <option name="userName" value="tujger" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/OdysseyConnect_Android/_git/OdysseyAndroid_10.1" />
+          <option name="userName" value="eduardm" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/OdysseyConnect_Android/_git/OdysseyAndroid" />
+          <option name="userName" value="eduardm" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/OdysseyConnect_Android/_git/OdysseyAndroid-Core" />
+          <option name="userName" value="eduardm" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\eduardm\AndroidStudioProjects" />
