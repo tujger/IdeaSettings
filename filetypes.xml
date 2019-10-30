@@ -3,7 +3,9 @@
     <extensionMap>
       <mapping pattern="*.js.flow" type="Flow" />
       <mapping pattern="*.js.flow" type="Flow" />
+      <mapping pattern="Drawer" type="JavaScript" />
       <mapping ext="mp3" type="Native" />
+      <mapping pattern=".env" type="PLAIN_TEXT" />
       <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
       <mapping pattern="private" type="PLAIN_TEXT" />
       <mapping pattern="temp" type="PLAIN_TEXT" />
