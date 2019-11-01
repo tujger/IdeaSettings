@@ -3,98 +3,39 @@
     <option name="visitedUrls">
       <list>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/googlemaps/android-samples.git" />
+          <option name="url" value="https://github.com/GoogleChromeLabs/sample-media-pwa.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/Firebasetest.git" />
+          <option name="url" value="https://github.com/iondrimba/react-weather-app.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/TestForServletWithExchange.git" />
+          <option name="url" value="https://github.com/googlecodelabs/your-first-pwapp.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/Odyssey" />
+          <option name="url" value="https://github.com/Edeqa/Edequate.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/dukei/any-balance-providers.git" />
+          <option name="url" value="https://github.com/Polymer/pwa-starter-kit.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/WaytousServer.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/Edeqa/Waytous-framework.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/Edeqa/Waytous.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/Edeqa/Helpers.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/Edeqa/EventBus.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/EdeqaSite.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="http://github.com" />
-          <option name="userName" value="tujger" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/Coursera-Introducing-to-ML.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/jpmml/jpmml-sparkml.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/fommil/netlib-java.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/tujger/drone-delivery-challenge.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/eclipsesource/jsonforms.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/eclipsesource/jsonforms-react-seed.git" />
-          <option name="userName" value="" />
-        </UrlAndUserName>
-        <UrlAndUserName>
-          <option name="url" value="https://github.com/NVlabs/SPADE.git" />
+          <option name="url" value="https://github.com/Meggin/hello-world-pwa.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
         <UrlAndUserName>
           <option name="url" value="https://github.com/codebusking/react-pwa-guide-app.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/tujger/pwa-react-gcp.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects" />
-  </component>
-  <component name="Vcs.Log.App.Settings">
-    <option name="SHOW_CHANGES_FROM_PARENTS" value="true" />
-    <option name="COLUMN_ORDER">
-      <list>
-        <option value="0" />
-        <option value="1" />
-        <option value="2" />
-        <option value="3" />
-      </list>
-    </option>
+    <option name="cloneParentDir" value="C:\Users\eduardm\IdeaProjects" />
   </component>
 </application>
