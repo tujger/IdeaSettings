@@ -8,11 +8,12 @@
       <mapping pattern=".env" type="PLAIN_TEXT" />
       <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
       <mapping pattern="private" type="PLAIN_TEXT" />
-      <mapping pattern="temp" type="PLAIN_TEXT" />
       <mapping pattern="iptables_config" type="PLAIN_TEXT" />
       <mapping pattern="tkLYaCUzGaifa991ZMRZvXSg5QOU6JP8jb7P62YRAzI" type="PLAIN_TEXT" />
-      <mapping pattern="abc" type="PLAIN_TEXT" />
+      <mapping pattern="temp" type="PLAIN_TEXT" />
       <mapping pattern="LICENSE" type="PLAIN_TEXT" />
+      <mapping pattern="abc" type="PLAIN_TEXT" />
+      <mapping pattern="PersistentDrawerLeft" type="PLAIN_TEXT" />
       <mapping ext="csr" type="PLAIN_TEXT" />
       <mapping ext="crt" type="PLAIN_TEXT" />
       <mapping ext="cert" type="PLAIN_TEXT" />
