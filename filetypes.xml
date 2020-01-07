@@ -23,12 +23,12 @@
       <mapping ext="key" type="PLAIN_TEXT" />
       <mapping ext="tables" type="PLAIN_TEXT" />
       <mapping ext="ext" type="PLAIN_TEXT" />
+      <mapping ext="jks" type="PLAIN_TEXT" />
       <mapping ext="64" type="PLAIN_TEXT" />
       <mapping ext="63" type="PLAIN_TEXT" />
       <mapping ext="62" type="PLAIN_TEXT" />
       <mapping ext="61" type="PLAIN_TEXT" />
       <mapping ext="51" type="PLAIN_TEXT" />
-      <mapping ext="jks" type="PLAIN_TEXT" />
       <mapping ext="pem" type="PLAIN_TEXT" />
       <removed_mapping ext="cmd" approved="true" type="PLAIN_TEXT" />
       <removed_mapping ext="bat" approved="true" type="PLAIN_TEXT" />
