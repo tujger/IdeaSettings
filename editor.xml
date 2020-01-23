@@ -6,7 +6,8 @@
     <option name="FONT_FAMILY" value="JetBrains Mono" />
   </component>
   <component name="EditorSettings">
-    <option name="SOFT_WRAP_FILE_MASKS" value="*.md; *.txt; *.rst; *.adoc" />
+    <option name="USE_SOFT_WRAPS" value="MAIN_EDITOR" />
+    <option name="SOFT_WRAP_FILE_MASKS" value="*.md; *.txt; *.rst; *.adoc; *.js" />
     <option name="USE_CUSTOM_SOFT_WRAP_INDENT" value="true" />
   </component>
   <component name="LiveEditOptions" chromeUpdateJSOnChanges="true" restartIfHotSwapFailed="true">
