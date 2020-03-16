@@ -400,11 +400,6 @@
     </library>
     <library name="Python 3.7 interpreter library">
       <CLASSES>
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/DLLs" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages" />
-        <root url="file://$USER_HOME$/.IntelliJIdea2018.2/system/python_stubs/932509820" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/python-skeletons" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/typeshed/stdlib/3" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/typeshed/stdlib/2and3" />
@@ -413,11 +408,6 @@
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/DLLs" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32" />
-        <root url="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages" />
-        <root url="file://$USER_HOME$/.IntelliJIdea2018.2/system/python_stubs/932509820" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/python-skeletons" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/typeshed/stdlib/3" />
         <root url="file://$APPLICATION_PLUGINS_DIR$/python/helpers/typeshed/stdlib/2and3" />
