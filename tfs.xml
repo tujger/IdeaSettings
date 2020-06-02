@@ -4,9 +4,9 @@
       <server uri="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/">
         <configuration>
           <credentials>
-            <credentials type="NtlmNative">
+            <credentials>
               <domain>PANTHEON-SE</domain>
-              <password />
+              <password>dffadfcbdfc4dfdedfc2df98df9adf9bdf9f</password>
               <username>eduardm</username>
             </credentials>
           </credentials>
