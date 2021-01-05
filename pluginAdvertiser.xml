@@ -1374,6 +1374,14 @@
             </plugin>
           </value>
         </entry>
+        <entry key="*.rules">
+          <value>
+            <plugin>
+              <option name="myPluginId" value="co.anbora.labs.firebase-syntax-highlighting" />
+              <option name="myPluginName" value="Firebase Rules Syntax Highlighter" />
+            </plugin>
+          </value>
+        </entry>
         <entry key="*.sh">
           <value>
             <plugin>
