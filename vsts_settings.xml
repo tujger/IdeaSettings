@@ -1,5 +1,8 @@
 <application>
   <component name="VSTSSettings">
+    <option name="serverContexts">
+      <array />
+    </option>
     <option name="properties">
       <array />
     </option>
