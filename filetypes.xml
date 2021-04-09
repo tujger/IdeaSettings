@@ -3,6 +3,7 @@
     <extensionMap>
       <mapping pattern="d" type="AUTO_DETECTED" />
       <mapping pattern="Drawer" type="JavaScript" />
+      <mapping ext="space.kts" type="Kotlin" />
       <mapping ext="gradle.kts" type="Kotlin" />
       <mapping ext="main.kts" type="Kotlin" />
       <mapping ext="mp3" type="Native" />
