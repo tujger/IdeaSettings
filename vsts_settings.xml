@@ -1,32 +1,7 @@
 <application>
   <component name="VSTSSettings">
     <option name="serverContexts">
-      <array>
-        <ServerContextState>
-          <option name="type" value="TFS" />
-          <option name="uri" value="http://epics.pantheon-se.com:8080/tfs/pantheoncollection/" />
-          <option name="serverUri" value="http://epics.pantheon-se.com:8080/tfs/" />
-          <option name="userId" value="65cac95e-d6d8-4d75-9eea-a923dd864919" />
-          <option name="teamProjectCollectionReference" value="{&quot;id&quot;:&quot;d4a67642-df21-44c3-9746-e555683782d3&quot;,&quot;name&quot;:&quot;PantheonCollection&quot;,&quot;url&quot;:&quot;http://epics.pantheon-se.com:8080/tfs/pantheoncollection/_apis/projectCollections/d4a67642-df21-44c3-9746-e555683782d3&quot;}" />
-          <option name="teamProjectReference" value="{&quot;abbreviation&quot;:null,&quot;description&quot;:null,&quot;id&quot;:null,&quot;name&quot;:null,&quot;revision&quot;:0,&quot;state&quot;:null,&quot;url&quot;:null}" />
-        </ServerContextState>
-        <ServerContextState>
-          <option name="type" value="TFS" />
-          <option name="uri" value="http://_TFS_LAST_USED_URL_" />
-          <option name="serverUri" value="http://_TFS_LAST_USED_URL_" />
-          <option name="userId" value="65cac95e-d6d8-4d75-9eea-a923dd864919" />
-          <option name="teamProjectCollectionReference" value="{&quot;id&quot;:&quot;d4a67642-df21-44c3-9746-e555683782d3&quot;,&quot;name&quot;:&quot;PantheonCollection&quot;,&quot;url&quot;:&quot;http://epics.pantheon-se.com:8080/tfs/pantheoncollection/_apis/projectCollections/d4a67642-df21-44c3-9746-e555683782d3&quot;}" />
-          <option name="teamProjectReference" value="{&quot;abbreviation&quot;:null,&quot;description&quot;:null,&quot;id&quot;:null,&quot;name&quot;:null,&quot;revision&quot;:0,&quot;state&quot;:null,&quot;url&quot;:null}" />
-        </ServerContextState>
-        <ServerContextState>
-          <option name="type" value="TFS" />
-          <option name="uri" value="http://epics.pantheon-se.com:8080/tfs" />
-          <option name="serverUri" value="http://epics.pantheon-se.com:8080/tfs" />
-          <option name="userId" value="65cac95e-d6d8-4d75-9eea-a923dd864919" />
-          <option name="teamProjectCollectionReference" value="{&quot;id&quot;:&quot;d4a67642-df21-44c3-9746-e555683782d3&quot;,&quot;name&quot;:&quot;PantheonCollection&quot;,&quot;url&quot;:&quot;http://epics.pantheon-se.com:8080/tfs/_apis/projectCollections/d4a67642-df21-44c3-9746-e555683782d3&quot;}" />
-          <option name="teamProjectReference" value="{&quot;abbreviation&quot;:null,&quot;description&quot;:null,&quot;id&quot;:&quot;6cee5560-f172-48d7-9c32-a29d588ed772&quot;,&quot;name&quot;:&quot;OdysseyCore_Delta&quot;,&quot;revision&quot;:777900,&quot;state&quot;:&quot;WELL_FORMED&quot;,&quot;url&quot;:&quot;http://epics.pantheon-se.com:8080/tfs/PantheonCollection/_apis/projects/6cee5560-f172-48d7-9c32-a29d588ed772&quot;}" />
-        </ServerContextState>
-      </array>
+      <array />
     </option>
     <option name="properties">
       <array>
