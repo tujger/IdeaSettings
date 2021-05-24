@@ -7,6 +7,11 @@
             <FeaturePluginsList>
               <option name="featureMap">
                 <map>
+                  <entry key="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+                    <value>
+                      <FeaturePluginData displayName="Tomcat Server" pluginName="Tomcat and TomEE" pluginId="Tomcat" bundled="true" />
+                    </value>
+                  </entry>
                   <entry key="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
                     <value>
                       <FeaturePluginData displayName="Plugin" pluginName="Plugin DevKit" pluginId="DevKit" bundled="true" />
@@ -119,7 +124,7 @@
                   </entry>
                   <entry key="JetRunConfigurationType">
                     <value>
-                      <FeaturePluginData displayName="Kotlin" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" />
+                      <FeaturePluginData displayName="Kotlin" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" bundled="true" />
                     </value>
                   </entry>
                   <entry key="JettyConfiguration">
@@ -129,12 +134,12 @@
                   </entry>
                   <entry key="KotlinJavaScriptTestRunnerProtractor">
                     <value>
-                      <FeaturePluginData displayName="Protractor (Kotlin)" pluginName="org.jetbrains.kotlin" pluginId="org.jetbrains.kotlin" />
+                      <FeaturePluginData displayName="Protractor (Kotlin)" pluginName="org.jetbrains.kotlin" pluginId="org.jetbrains.kotlin" bundled="true" />
                     </value>
                   </entry>
                   <entry key="KotlinStandaloneScriptRunConfigurationType">
                     <value>
-                      <FeaturePluginData displayName="Kotlin script" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" />
+                      <FeaturePluginData displayName="Kotlin script" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" bundled="true" />
                     </value>
                   </entry>
                   <entry key="MatlabApplication">
@@ -202,6 +207,11 @@
                       <FeaturePluginData displayName="Python" pluginName="Python" pluginId="Pythonid" />
                     </value>
                   </entry>
+                  <entry key="QuarkusRunConfigurationType">
+                    <value>
+                      <FeaturePluginData displayName="Quarkus" pluginName="Quarkus" pluginId="com.intellij.quarkus" bundled="true" />
+                    </value>
+                  </entry>
                   <entry key="ReactNative">
                     <value>
                       <FeaturePluginData displayName="React Native" pluginName="JavaScript Debugger" pluginId="JavaScriptDebugger" bundled="true" />
@@ -230,6 +240,11 @@
                   <entry key="TSqltConfigurationType">
                     <value>
                       <FeaturePluginData displayName="tSQLt Test" pluginName="Database Tools and SQL" pluginId="com.intellij.database" bundled="true" />
+                    </value>
+                  </entry>
+                  <entry key="TomeeConfiguration">
+                    <value>
+                      <FeaturePluginData displayName="TomEE Server" pluginName="Tomcat and TomEE" pluginId="Tomcat" bundled="true" />
                     </value>
                   </entry>
                   <entry key="Tox">
@@ -374,7 +389,7 @@
                   </entry>
                   <entry key="kotlin-language">
                     <value>
-                      <FeaturePluginData displayName="Kotlin" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" />
+                      <FeaturePluginData displayName="Kotlin" pluginName="Kotlin" pluginId="org.jetbrains.kotlin" bundled="true" />
                     </value>
                   </entry>
                   <entry key="native-android-gradle">
