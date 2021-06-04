@@ -7,8 +7,8 @@
       <mapping ext="gradle.kts" type="Kotlin" />
       <mapping ext="main.kts" type="Kotlin" />
       <mapping ext="mp3" type="Native" />
-      <mapping pattern=".env.production" type="PLAIN_TEXT" />
       <mapping pattern="tkLYaCUzGaifa991ZMRZvXSg5QOU6JP8jb7P62YRAzI" type="PLAIN_TEXT" />
+      <mapping pattern=".env.production" type="PLAIN_TEXT" />
       <mapping pattern="temp" type="PLAIN_TEXT" />
       <mapping pattern="private" type="PLAIN_TEXT" />
       <mapping pattern="abc" type="PLAIN_TEXT" />
