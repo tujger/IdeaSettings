@@ -1,43 +1,44 @@
 <application>
-  <component name="FileTypeManager" version="17">
+  <component name="FileTypeManager" version="18">
     <extensionMap>
-      <mapping ext="webp" type="Image" />
+      <mapping pattern="d" type="AUTO_DETECTED" />
       <mapping pattern="Drawer" type="JavaScript" />
+      <mapping ext="space.kts" type="Kotlin" />
+      <mapping ext="gradle.kts" type="Kotlin" />
+      <mapping ext="main.kts" type="Kotlin" />
       <mapping ext="mp3" type="Native" />
-      <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
-      <mapping pattern="abc" type="PLAIN_TEXT" />
+      <mapping pattern="tkLYaCUzGaifa991ZMRZvXSg5QOU6JP8jb7P62YRAzI" type="PLAIN_TEXT" />
+      <mapping pattern=".env.production" type="PLAIN_TEXT" />
+      <mapping pattern="temp" type="PLAIN_TEXT" />
       <mapping pattern="private" type="PLAIN_TEXT" />
+      <mapping pattern="abc" type="PLAIN_TEXT" />
+      <mapping pattern="LICENSE" type="PLAIN_TEXT" />
       <mapping pattern=".firebaserc-dev-version" type="PLAIN_TEXT" />
-      <mapping pattern="iptables_config" type="PLAIN_TEXT" />
       <mapping pattern="PersistentDrawerLeft" type="PLAIN_TEXT" />
       <mapping pattern=".env" type="PLAIN_TEXT" />
-      <mapping pattern="temp" type="PLAIN_TEXT" />
-      <mapping pattern="tkLYaCUzGaifa991ZMRZvXSg5QOU6JP8jb7P62YRAzI" type="PLAIN_TEXT" />
-      <mapping pattern="LICENSE" type="PLAIN_TEXT" />
-      <mapping ext="csr" type="PLAIN_TEXT" />
-      <mapping ext="crt" type="PLAIN_TEXT" />
-      <mapping ext="backup" type="PLAIN_TEXT" />
-      <mapping ext="cnf" type="PLAIN_TEXT" />
-      <mapping ext="key" type="PLAIN_TEXT" />
-      <mapping ext="tables" type="PLAIN_TEXT" />
-      <mapping ext="ext" type="PLAIN_TEXT" />
-      <mapping ext="cert" type="PLAIN_TEXT" />
-      <mapping ext="jks" type="PLAIN_TEXT" />
+      <mapping pattern="mapstyle_night.json" type="PLAIN_TEXT" />
+      <mapping pattern="iptables_config" type="PLAIN_TEXT" />
       <mapping ext="64" type="PLAIN_TEXT" />
-      <mapping ext="63" type="PLAIN_TEXT" />
-      <mapping ext="62" type="PLAIN_TEXT" />
       <mapping ext="61" type="PLAIN_TEXT" />
-      <mapping ext="51" type="PLAIN_TEXT" />
+      <mapping ext="crt" type="PLAIN_TEXT" />
+      <mapping ext="key" type="PLAIN_TEXT" />
+      <mapping ext="cert" type="PLAIN_TEXT" />
+      <mapping ext="ext" type="PLAIN_TEXT" />
+      <mapping ext="tables" type="PLAIN_TEXT" />
+      <mapping ext="csr" type="PLAIN_TEXT" />
+      <mapping ext="jks" type="PLAIN_TEXT" />
+      <mapping ext="63" type="PLAIN_TEXT" />
+      <mapping ext="backup" type="PLAIN_TEXT" />
       <mapping ext="pem" type="PLAIN_TEXT" />
-      <removed_mapping ext="log" approved="true" type="PLAIN_TEXT" />
+      <mapping ext="62" type="PLAIN_TEXT" />
+      <mapping ext="51" type="PLAIN_TEXT" />
+      <mapping ext="cnf" type="PLAIN_TEXT" />
+      <removed_mapping ext="apk" approved="true" type="ARCHIVE" />
       <removed_mapping ext="bat" approved="true" type="PLAIN_TEXT" />
       <removed_mapping ext="cmd" approved="true" type="PLAIN_TEXT" />
-      <removed_mapping ext="bat" approved="true" type="PLAIN_TEXT" />
-      <removed_mapping ext="log" approved="true" type="PLAIN_TEXT" />
-      <removed_mapping ext="dockerfile" approved="true" type="textmate" />
-      <removed_mapping ext="makefile" approved="true" type="textmate" />
-      <removed_mapping ext="cmd" approved="true" type="PLAIN_TEXT" />
-      <removed_mapping ext="snakefile" approved="true" type="textmate" />
+      <removed_mapping ext="ignore" approved="true" type="IgnoreLang file" />
+      <removed_mapping ext="psd" approved="true" type="Image" />
+      <removed_mapping ext="tfignore" approved="true" type=".tfignore" />
     </extensionMap>
   </component>
 </application>
