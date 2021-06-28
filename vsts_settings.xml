@@ -42,10 +42,6 @@
           <option name="name" value="reactiveClientMemory" />
           <option name="value" value="2048" />
         </PropertyState>
-        <PropertyState>
-          <option name="name" value="lastContextKey" />
-          <option name="value" value="//_tfs_last_used_url_" />
-        </PropertyState>
       </array>
     </option>
   </component>
