@@ -88,6 +88,9 @@
       <pair source="c" header="h" />
     </extensions>
   </Objective-C-extensions>
+  <TypeScriptCodeStyleSettings version="0">
+    <option name="IMPORT_SORT_MODULE_NAME" value="true" />
+  </TypeScriptCodeStyleSettings>
   <XML>
     <option name="XML_KEEP_LINE_BREAKS" value="false" />
     <option name="XML_ALIGN_ATTRIBUTES" value="false" />
