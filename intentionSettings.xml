@@ -1,0 +1,5 @@
+<application>
+  <component name="IntentionManagerSettings">
+    <ignoreAction name="JSON/Sort properties alphabetically" />
+  </component>
+</application>
