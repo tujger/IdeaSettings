@@ -1,9 +1,10 @@
 <application>
   <component name="PlantUmlSettingsNew">
+    <option name="highlightInImages" value="true" />
     <option name="lastBundledVersion" value="1.2021.11" />
     <option name="previewSettings">
       <PreviewSettings>
-        <option name="splitEditorLayout" value="Show preview only" />
+        <option name="splitEditorLayout" value="Show editor only" />
       </PreviewSettings>
     </option>
   </component>
