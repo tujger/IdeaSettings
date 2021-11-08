@@ -5,7 +5,6 @@
       <mapping ext="gradle.kts" type="Kotlin" />
       <mapping ext="main.kts" type="Kotlin" />
       <mapping ext="plantuml" type="PlantUML file" />
-      <mapping ext="gv" type="dot file" />
       <removed_mapping ext="apk" approved="true" type="ARCHIVE" />
       <removed_mapping ext="bat" approved="true" type="PLAIN_TEXT" />
       <removed_mapping ext="cmd" approved="true" type="PLAIN_TEXT" />
@@ -13,6 +12,7 @@
       <removed_mapping ext="psd" approved="true" type="Image" />
       <removed_mapping ext="qrc" approved="true" type="XML" />
       <removed_mapping ext="tfignore" approved="true" type=".tfignore" />
+      <mapping ext="gv" type="dot file" />
     </extensionMap>
   </component>
 </application>
