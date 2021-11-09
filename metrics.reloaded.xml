@@ -1,0 +1,220 @@
+<application>
+  <component name="MetricsReloaded">
+    <option name="selectedProfile" value="A" />
+    <layout>
+      <profile name="A">
+        <metrics_layout>
+          <tables>
+            <table category="Method">
+              <table_layout />
+            </table>
+            <table category="Class">
+              <table_layout />
+            </table>
+            <table category="Interface">
+              <table_layout />
+            </table>
+            <table category="Package">
+              <table_layout>
+                <column_order>
+                  <c>package</c>
+                  <c>NCLOCp</c>
+                </column_order>
+                <column_widths>
+                  <w>260</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+            <table category="Module">
+              <table_layout sort_column="2">
+                <column_order>
+                  <c>module</c>
+                  <c>JS</c>
+                  <c>L(JS)</c>
+                </column_order>
+                <column_widths>
+                  <w>105</w>
+                  <w>75</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+            <table category="FileType">
+              <table_layout />
+            </table>
+            <table category="Project">
+              <table_layout>
+                <column_order>
+                  <c>project</c>
+                  <c>CLOC</c>
+                  <c>L(JS)</c>
+                  <c>JS</c>
+                  <c>CF</c>
+                </column_order>
+                <column_widths>
+                  <w>105</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+          </tables>
+        </metrics_layout>
+      </profile>
+      <profile name="Chidamber-Kemerer metrics">
+        <metrics_layout>
+          <tables>
+            <table category="Method">
+              <table_layout />
+            </table>
+            <table category="Class">
+              <table_layout />
+            </table>
+            <table category="Interface">
+              <table_layout />
+            </table>
+            <table category="Package">
+              <table_layout />
+            </table>
+            <table category="Module">
+              <table_layout />
+            </table>
+            <table category="FileType">
+              <table_layout />
+            </table>
+            <table category="Project">
+              <table_layout />
+            </table>
+          </tables>
+        </metrics_layout>
+      </profile>
+      <profile name="Complexity metrics">
+        <metrics_layout>
+          <tables>
+            <table category="Method">
+              <table_layout />
+            </table>
+            <table category="Class">
+              <table_layout />
+            </table>
+            <table category="Interface">
+              <table_layout />
+            </table>
+            <table category="Package">
+              <table_layout />
+            </table>
+            <table category="Module">
+              <table_layout />
+            </table>
+            <table category="FileType">
+              <table_layout />
+            </table>
+            <table category="Project">
+              <table_layout>
+                <column_order>
+                  <c>project</c>
+                  <c>v(G)avg</c>
+                  <c>v(G)tot</c>
+                </column_order>
+                <column_widths>
+                  <w>173</w>
+                  <w>75</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+          </tables>
+        </metrics_layout>
+      </profile>
+      <profile name="Dependency metrics">
+        <metrics_layout>
+          <tables>
+            <table category="Method">
+              <table_layout />
+            </table>
+            <table category="Class">
+              <table_layout />
+            </table>
+            <table category="Interface">
+              <table_layout />
+            </table>
+            <table category="Package">
+              <table_layout>
+                <column_order>
+                  <c>package</c>
+                  <c>Cyclic</c>
+                  <c>PDcy</c>
+                  <c>PDpt</c>
+                </column_order>
+                <column_widths>
+                  <w>260</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+            <table category="Module">
+              <table_layout />
+            </table>
+            <table category="FileType">
+              <table_layout />
+            </table>
+            <table category="Project">
+              <table_layout />
+            </table>
+          </tables>
+        </metrics_layout>
+      </profile>
+      <profile name="MOOD metrics">
+        <metrics_layout>
+          <tables>
+            <table category="Method">
+              <table_layout />
+            </table>
+            <table category="Class">
+              <table_layout />
+            </table>
+            <table category="Interface">
+              <table_layout />
+            </table>
+            <table category="Package">
+              <table_layout />
+            </table>
+            <table category="Module">
+              <table_layout />
+            </table>
+            <table category="FileType">
+              <table_layout />
+            </table>
+            <table category="Project">
+              <table_layout>
+                <column_order>
+                  <c>project</c>
+                  <c>AHF</c>
+                  <c>AIF</c>
+                  <c>CF</c>
+                  <c>MHF</c>
+                  <c>MIF</c>
+                  <c>PF</c>
+                </column_order>
+                <column_widths>
+                  <w>105</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                  <w>75</w>
+                </column_widths>
+              </table_layout>
+            </table>
+          </tables>
+        </metrics_layout>
+      </profile>
+    </layout>
+  </component>
+</application>
