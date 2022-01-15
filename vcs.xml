@@ -14,6 +14,10 @@
           <option name="url" value="https://github.com/googlecodelabs/workbox-lab.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://epics.pantheon-se.com:8080/tfs/PantheonCollection/OdysseyCore_Delta/16.xUS1/OdysseyCore/OdysseyReact" />
+          <option name="userName" value="eduardm" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\eduardm\IdeaProjects" />
@@ -27,5 +31,8 @@
         <option value="Default.Date" />
       </list>
     </option>
+  </component>
+  <component name="VcsEditorTab.Settings">
+    <option name="openInNewWindow" value="true" />
   </component>
 </application>

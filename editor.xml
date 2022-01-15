@@ -5,7 +5,6 @@
   <component name="EditorSettings">
     <option name="USE_SOFT_WRAPS" value="MAIN_EDITOR" />
     <option name="SOFT_WRAP_FILE_MASKS" value="*.md; *.txt; *.rst; *.adoc; *.js" />
-    <option name="USE_CUSTOM_SOFT_WRAP_INDENT" value="true" />
     <option name="CUSTOM_SOFT_WRAP_INDENT" value="4" />
     <option name="STRIP_TRAILING_SPACES" value="Whole" />
     <option name="IS_ENSURE_NEWLINE_AT_EOF" value="true" />
@@ -20,5 +19,9 @@
   </component>
   <component name="LiveEditOptions" chromeUpdateJSOnChanges="true" restartIfHotSwapFailed="true">
     <option name="elementHighlighting" value="true" />
+  </component>
+  <component name="TodoConfiguration">
+    <pattern pattern="\btodo\b.*" />
+    <pattern pattern="\bfixme\b.*" />
   </component>
 </application>
