@@ -15,7 +15,7 @@
               <table_layout />
             </table>
             <table category="Package">
-              <table_layout>
+              <table_layout ascending="false">
                 <column_order>
                   <c>package</c>
                   <c>NCLOCp</c>
