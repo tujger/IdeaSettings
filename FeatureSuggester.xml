@@ -1,11 +1,25 @@
 <application>
   <component name="FeatureSuggesterSettings">
+    <option name="suggestionLastShownTime">
+      <map>
+        <entry key="Introduce variable" value="1645654105913" />
+      </map>
+    </option>
     <option name="workingDays">
       <list>
         <option value="1645040843712" />
         <option value="1645105766717" />
         <option value="1645191052331" />
         <option value="1645448687493" />
+        <option value="1645539135870" />
+        <option value="1645626162136" />
+        <option value="1645710126144" />
+        <option value="1645795439397" />
+        <option value="1645899272989" />
+        <option value="1646054598949" />
+        <option value="1646146934073" />
+        <option value="1646227264940" />
+        <option value="1646406714763" />
       </list>
     </option>
   </component>
