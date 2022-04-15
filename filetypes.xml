@@ -5,11 +5,11 @@
       <mapping ext="gradle.kts" type="Kotlin" />
       <mapping ext="main.kts" type="Kotlin" />
       <mapping ext="plantuml" type="PlantUML file" />
-      <removed_mapping pattern="Kptfile" type="YAML" />
       <removed_mapping ext="bat" approved="true" type="PLAIN_TEXT" />
       <removed_mapping ext="cmd" approved="true" type="PLAIN_TEXT" />
       <removed_mapping ext="ignore" approved="true" type="IgnoreLang file" />
       <removed_mapping ext="log" approved="true" type="PLAIN_TEXT" />
+      <removed_mapping pattern="Kptfile" approved="true" type="YAML" />
     </extensionMap>
   </component>
 </application>
