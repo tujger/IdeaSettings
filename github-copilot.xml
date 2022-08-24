@@ -2,5 +2,6 @@
   <component name="github-copilot">
     <option name="signinNotificationShown" value="true" />
     <option name="enableCompletions" value="false" />
+    <option name="checkForUpdate" value="false" />
   </component>
 </application>
