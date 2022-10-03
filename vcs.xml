@@ -22,9 +22,17 @@
           <option name="url" value="https://github.com/eclipsesource/jsonforms-react-seed" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://172.23.62.117:8080" />
+          <option name="userName" value="eduardm" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://172.23.62.117:8080/tfs/PantheonCollection/OdysseyCore_Delta/_versionControl?path=%24%2FOdysseyCore_Delta%2F16.x_US1%2FOdysseyCore%2FOdysseyReact" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects" />
+    <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects/_versionControl?path=$/OdysseyCore_Delta/16.x_US1/OdysseyCore" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ID_ORDER">
