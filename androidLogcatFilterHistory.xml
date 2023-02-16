@@ -1,8 +1,9 @@
 <application>
   <component name="AndroidLogcatFilterHistory">
-    <option name="mostRecentlyUsed" value="package:odyssey " />
+    <option name="mostRecentlyUsed" value="package:com.pantheon_inc.odyssey.android " />
     <option name="nonFavorites">
       <list>
+        <option value="package:com.pantheon_inc.odyssey.android " />
         <option value="package:odyssey " />
         <option value="package:odyssey HOST" />
         <option value="package:odyssey" />
